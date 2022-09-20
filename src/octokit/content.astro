@@ -4,8 +4,7 @@ import {Code} from 'astro/components'
 const {link} = Astro.props
 const content = await fetchContent(link);
 ---
-	<Code code={content} lang="jsx"/>
-<button id="download">download</button>
+	<Code code={content} lang="jsx" wrap={null}/>
 <script>
 import { toPng } from 'html-to-image';
 		// const code = document.querySelector(".astro-code")
@@ -18,3 +17,10 @@ import { toPng } from 'html-to-image';
 		// 		a.click()
 		// })
 </script>
+
+<style>
+.astro-code {
+	background-color: transparent !important
+}
+</style>
+
