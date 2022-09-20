@@ -11,6 +11,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 // (this uses :where() while modifier uses :is())
 // - https://tailwindcss.com/docs/typography-plugin#element-modifiers
 // - https://tailwindcss.com/docs/typography-plugin#customizing-the-css
+
 const typography = (_theme) => ({
   DEFAULT: {
     css: {
@@ -32,6 +33,7 @@ const typography = (_theme) => ({
     },
   },
 });
+
 module.exports = {
   content: ["./src/**/*.{html,js,astro}"],
 

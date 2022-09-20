@@ -1,0 +1,20 @@
+---
+import {fetchContent} from './fetch.js'
+import {Code} from 'astro/components'
+const {link} = Astro.props
+const content = await fetchContent(link);
+---
+	<Code code={content} lang="jsx"/>
+<button id="download">download</button>
+<script>
+import { toPng } from 'html-to-image';
+		// const code = document.querySelector(".astro-code")
+		// toPng(code).then(url=>
+		// {
+		// 		const a = document.createElement('a')
+		// 		a.href=url
+		// 		a.download='lmao.png'
+		// 		document.body.appendChild(a);
+		// 		a.click()
+		// })
+</script>
