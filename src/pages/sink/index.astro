@@ -1,0 +1,21 @@
+---
+import Layout from '@/layouts/Layout.astro'
+
+const sinks = await Astro.glob('./*.mdx')
+---
+<Layout
+  title="sink"
+  icon="🚰"
+  cls="font-light bg-gray-800 h-screen w-screen text-gray-50 flex flex-col items-center justify-center"
+>
+    <p class="text-3xl">🚰 sink</p>
+    <div class="h-2"></div>
+    <p>hot mess of experiments</p
+    <>
+      <div class="flex space-x-2">
+      {sinks.map((sink) => (
+        <a href={sink.frontmatter.url} class="underline text-blue-300">{sink.frontmatter.title}</a>
+      ))}
+    </>
+  </div>
+</Layout>
