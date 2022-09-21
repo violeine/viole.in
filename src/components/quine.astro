@@ -2,8 +2,8 @@
 import fs from 'node:fs/promises'
 import {Code} from 'astro/components'
 const { path, line } = Astro.props
-
-const url = new URL(`../${path}`, import.meta.url)
+const relativePath = import.meta.env.MODE === "development" ? '../' : '../src/';
+const url = new URL(`${relativePath}${path}`, import.meta.url)
 const [start, end]= line ? line.split("-") : [undefined]
 const text = await fs.readFile(url, 'utf-8')
 const splicedText = start ? text.split("\n").splice(Number(start) - 1, Number(end) + 1).join("\n"): text
