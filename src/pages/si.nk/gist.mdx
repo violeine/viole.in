@@ -1,0 +1,27 @@
+---
+title: gist
+url: si.nk/gist
+layout : "@/layouts/Blog.astro"
+---
+import Gist from '@/components/gist.astro'
+import Quine from '@/components/quine.astro'
+
+### `gist` - fetch and display github content
+
+<Gist link="https://github.com/thien-do/samuwrite.com/blob/main/src/web/utils/patch.tsx#L1-L9"/>
+
+#### the gist
+
+transform 
+
+```
+https://github.com/thien-do/samuwrite.com/blob/main/src/web/utils/patch.tsx#L1-L9
+```
+
+into 
+```
+https://raw.githubusercontent.com/violeine/samuwrite.com/main/src/web/utils/patch.tsx
+```
+and then put into shiki's codeblock
+
+<Quine path ='components/gist.astro' line="17-33" lang="js"/>

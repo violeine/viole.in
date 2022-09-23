@@ -17,8 +17,6 @@
     "@astrojs/tailwind": "^2.0.1",
     "@astrojs/vercel": "^2.0.0",
     "astro": "^1.2.6",
-    "html-to-image": "^1.10.8",
-    "octokit": "^2.0.7",
     "p5": "^1.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
