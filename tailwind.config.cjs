@@ -35,7 +35,8 @@ const typography = (_theme) => ({
 });
 
 module.exports = {
-  content: ["./src/**/*.{html,js,astro}"],
+  mode: "jit",
+  content: ["./src/**/*.{html,jsx,js,tsx,astro}"],
 
   theme: {
     extend: {
