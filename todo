@@ -1,0 +1,11 @@
+al.bum: fetch spotify album, playback, go ham with layout build with spotify sdk and musixmatch
+
+gorb: Ronin clone to grok lisp https://100r.co/site/ronin.html
+
+grid/typo: Implement baseline grid, grid utils, do stuff with Jetbrains Mono and Inter typeface
+
+script/: bunch of script with babashka
+	t: t log book for fun and profit
+
+helloworld.wasm with astro
+

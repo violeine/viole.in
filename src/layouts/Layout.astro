@@ -1,12 +1,12 @@
 ---
 export interface Props {
-	title: string;
-	icon: string;
-	cls: string
+	title?: string;
+	icon?: string;
+	cls?: string;
 }
 
 const { title, icon, cls } = Astro.props;
-import 'tailwindcss/tailwind.css'
+import "tailwindcss/tailwind.css";
 ---
 
 <!DOCTYPE html>
@@ -16,15 +16,22 @@ import 'tailwindcss/tailwind.css'
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-    <link
-      rel="icon"
-      href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${icon}</text></svg>`}
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500&display=swap" rel="stylesheet">
+		<link
+			rel="icon"
+			href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${icon}</text></svg>`}
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
-  <body class={cls}>
+	<body class={cls}>
 		<slot />
 	</body>
 </html>

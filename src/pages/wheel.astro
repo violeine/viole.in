@@ -1,0 +1,66 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="wheel" icon="n" cls="">
+  <canvas id="hello" width="300" height="300"></canvas>
+  <div class="arc"></div>
+  <script is:inline>
+    const slices = [
+      "#ff0000",
+      "#00ff00",
+      "green",
+      "blue",
+      "#ff0000",
+      "#00ff00",
+      "green",
+      "blue",
+      "#ff0000",
+      "#00ff00",
+      "green",
+      "blue",
+    ];
+
+    const $ = document.querySelector.bind(document);
+    const canvas = $("#hello");
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    const c = canvas.getContext("2d");
+    c.scale(dpr, dpr);
+    c.translate(rect.width / 2, rect.width / 2);
+    slices.map((el, i, a) => {
+      c.fillStyle = el;
+      const start = (i * (2 * Math.PI)) / a.length;
+      const end = ((i + 1) * (2 * Math.PI)) / a.length;
+      c.beginPath();
+      c.moveTo(0, 0);
+      c.arc(0, 0, 150, start, end);
+      c.lineTo(0, 0);
+      c.fill();
+      c.closePath();
+      c.beginPath();
+      c.fillStyle = "black";
+      c.font = "bold 30px sans-serif";
+      c.fillText("lmao", 0, 0);
+      c.closePath();
+      c.beginPath();
+      c.fillStyle = "#fff";
+      c.arc(0, 0, 120, 0, 2 * Math.PI);
+      c.fill();
+      c.closePath();
+    });
+  </script>
+</Layout>
+
+<style>
+  #hello:hover {
+    animation: rotate 10s ease normal;
+  }
+  @keyframes rotate {
+    to {
+      transform: rotate(calc(3600deg - 0deg));
+    }
+  }
+</style>
