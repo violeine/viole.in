@@ -1,5 +1,6 @@
 import { range } from "@/lib/m";
 import { useState } from "react";
+import "tailwindcss/tailwind.css";
 
 const Tau = 2 * Math.PI;
 export const Cards = () => {

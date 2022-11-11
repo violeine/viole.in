@@ -1,4 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+* { 
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+}
 
+body {
+	max-width: 120ch;
+	margin: auto;
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 20px;
+}
+header {
+	display: flex;
+	gap: 16px;
+	align-items:start;
+	margin-bottom: 36px;
+}
+nav {
+	display:flex;
+	flex-direction:column;
+	gap: 4px;
+}
+
+a, a:visited {
+	color:inherit
+}
+a.self {
+	font-style: italic
+}

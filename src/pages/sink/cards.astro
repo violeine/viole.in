@@ -1,0 +1,26 @@
+---
+import { Cards } from "@/components/divs.jsx";
+---
+
+<body>
+  <Cards client:load />
+  <style is:global>
+    .spin {
+      animation: spin 1s linear infinite;
+      transform: rotate(0deg);
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(180deg);
+      }
+    }
+    .hover {
+      transform: translateY(-80vh) scale(2) rotateY(180deg) rotateX(360deg) !important;
+      background-color: "red" !important;
+    }
+  </style>
+</body>

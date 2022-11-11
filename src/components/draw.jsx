@@ -1,4 +1,5 @@
 import { Renderer, TLShape, TLShapeUtil, Vec } from "@tldraw/core";
+import React from "react";
 
 export default function Core() {
   const [page, setPage] = React.useState({
