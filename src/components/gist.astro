@@ -1,8 +1,8 @@
---- 
-import { Code } from 'astro/components'
-import J from '@/components/Json.astro'
+---
+import { Code } from "astro/components";
+import J from "@/components/Json.astro";
 
-const { link }= Astro.props
+const { link } = Astro.props;
 
 export const fetchContent = async (link) => {
   const parsedLink = parse(link);
@@ -32,7 +32,7 @@ export const parse = (link) => {
   };
 };
 
-const content = await fetchContent(link)
-
+const content = await fetchContent(link);
 ---
-<Code code={content} lang={parse(link).lang}/> 
+
+<Code code={content} lang={parse(link).lang} theme="github-light" />

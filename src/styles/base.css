@@ -1,33 +1,92 @@
-* { 
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	text-decoration: none;
+:first-child {margin-top: unset}
+:last-chlild {margin-bottom: unset}
+:root {
+	--fontSize: 16px;
+	--lineHeight: calc(var(--fontSize) * 1.5);
+	--baseline: calc(var(--lineHeight) / 2);
+	--fg-rgb: 0,0,0;
+	--fg-a: 1;
+	--fg: rgba(var(--fg-rgb), var(--fg-a));
+	--bg: white;
+	--sel: #bca;
+	--alp: #abc;
+	--columnGap: calc(var(--lineHeight)*2);
+	--blockSpacingTop: 0;
+	--blockSpacingBottom: calc(var(--lineHeight)*1);
+	--h1-size: 2.8rem;
+	--h2-size: 2.2rem;
+	--h3-size: 1.4rem;
+	--h4-size: 1.1rem;
+}
+
+html {
+	font-size: var(--fontSize);
+	line-height: var(--lineHeight);
+	background-color: var(--bg);
+	color: var(--fg);
 }
 
 body {
-	max-width: 120ch;
-	margin: auto;
-	display:flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 20px;
-}
-header {
-	display: flex;
-	gap: 16px;
-	align-items:start;
-	margin-bottom: 36px;
-}
-nav {
-	display:flex;
-	flex-direction:column;
-	gap: 4px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	max-width: 800px;
+	min-height: 100vh;
+	overflow-x: hidden;
+	padding: calc(var(--lineHeight) * 2);
+	padding-bottom: calc(var(--lineHeight) * 3);
 }
 
-a, a:visited {
-	color:inherit
+address, article, aside, blockquote, dd, dl, dt, fieldset, figure, form,
+r-grid, h1, h2, h3, h4, h5, h6, li, nav, ol, p, pre, table, tfoot, ul, video {
+  margin-top: var(--blockSpacingTop);
+  margin-bottom: var(--blockSpacingBottom);
 }
-a.self {
-	font-style: italic
+h1, .h1 {
+	font-weight:bold;
+	letter-spacing: -0.05em;
+	font-size: var(--h1-size);
+	line-height: calc(var(--lineHeight)*2);
+	margin-left: calc(var(--h1-size) / -22);
+}
+
+h2, .h2 {
+	font-weight: bold;
+	letter-spacing: -0.03em;
+	font-size: var(--h2-size);
+	line-height: calc(var(--lineHeight)*2);
+	margin-left: calc(var(--h2-size)/-26);
+}
+
+h3, .h3, h4, .h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: var(--h3-size);
+  padding-top: calc(var(--baseline) * 0.75);
+  padding-bottom: calc(var(--baseline) * 0.25);
+  margin-bottom: var(--baseline);
+}
+
+h4, .h4 {
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  font-size: var(--h4-size);
+}
+
+nav {
+	display: flex;
+	gap: var(--columnGap);
+}
+nav ul > li {
+	margin-bottom: 0;
+}
+
+ul > li {
+	margin-bottom: calc(var(--blockSpacingBottom)*0.25)
+}
+
+.astro-code {
+	border-radius: 0.3125rem;
+	border: 1px solid var(--fg);
+	font-size: 0.875rem;
+	padding: 0.625rem;
 }

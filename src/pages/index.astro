@@ -1,9 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { listContent } from "@/lib/ash";
-const data = await listContent();
 ---
 
-<Layout title="hi." icon="🌲">
-  <h2>hi.</h2>
-</Layout>
+<Layout title="hi." icon="🌲" />
+
+<style>
+  body {
+    display: flex;
+    align-items: center;
+  }
+</style>

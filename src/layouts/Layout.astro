@@ -8,6 +8,7 @@ export interface Props {
 const { title, icon, cls } = Astro.props;
 import { listContent, toURL } from "@/lib/ash.js";
 import Json from "@/components/Json.astro";
+import "@/styles/reset.css";
 import "@/styles/base.css";
 const data = await listContent(Astro.url.pathname);
 ---
@@ -16,36 +17,38 @@ const data = await listContent(Astro.url.pathname);
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <link
       rel="icon"
       href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${icon}</text></svg>`}
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
   </head>
-  <body class={cls}>
-    <header>
+  <body>
+    <nav>
       <h2><a href="/">(λ)</a></h2>
       {
         data.map((el) => (
-          <nav>
+          <ul class="compact">
             {el.map((a) => (
-              <a
-                class:list={[{self: Astro.url.pathname.includes(`/${toURL(a)}`)}, { self: Astro.url.pathname === `/${toURL(a)}` }]}
-                href={`/${toURL(a)}`}
-              >{toURL(a).split("/").at(-1)}</a>
+              <li>
+                <a
+                  class:list={[
+                    { italic: Astro.url.pathname.includes(`/${toURL(a)}`) },
+                    { italic: Astro.url.pathname === `/${toURL(a)}` },
+                  ]}
+                  href={`/${toURL(a)}`}
+                >
+                  {toURL(a).split("/").at(-1)}
+                </a>
+              </li>
             ))}
-          </nav>
+          </ul>
         ))
       }
-    </header>
+    </nav>
     <slot />
   </body>
 </html>
