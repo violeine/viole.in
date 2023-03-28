@@ -1,0 +1,41 @@
+---
+import Grid from "@/components/grid.astro";
+import Cell from "@/components/cell.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout>
+  <h3>Raster grid implement in Astro</h3>
+  <div class="demo">
+    <Grid columns={8} gap={12}>
+      <Cell>1</Cell>
+      <Cell>2</Cell>
+      <Cell>3</Cell>
+      <Cell>4</Cell>
+      <Cell>5</Cell>
+      <Cell>6</Cell>
+      <Cell>7</Cell>
+      <Cell>8</Cell>
+      <Cell />
+      <Cell span={3}>3</Cell>
+      <Cell />
+      <Cell span="7-8">7-8</Cell>
+      <Cell span="2+2">2+2</Cell>
+      <Cell span="5-8">5-8</Cell>
+      <Cell span="1-4">1-4</Cell>
+      <Cell span="6..">6..</Cell>
+      <Cell span="2..">2..</Cell>
+      <Cell span="4..">4..</Cell>
+      <Cell span="1-2">1-2</Cell>
+      <Cell span="4-5">4-5</Cell>
+    </Grid>
+  </div>
+</Layout>
+
+<style>
+  .demo :global(.grid > .cell) {
+    background: var(--grene);
+    color: var(--grey);
+    padding: var(--baseline) 0 var(--baseline) 1rem;
+  }
+</style>

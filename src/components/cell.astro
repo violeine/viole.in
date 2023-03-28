@@ -1,0 +1,61 @@
+---
+interface Props {
+	span?:
+		| number
+		| `${number}-${number}`
+		| `${number}+${number}`
+		| `${number}..`
+		| "row";
+}
+const { span } = Astro.props;
+
+function parse(span: Props["span"]) {
+	if (span === undefined) return {};
+	if (typeof span === "number") {
+		return {
+			"grid-col-end": span,
+		};
+	}
+	if (span === "row") return {};
+	const delim = new RegExp(/[-+..]/);
+	const [start, end] = span.split(delim);
+	if (span.includes(".."))
+		return {
+			"grid-col-start": start,
+		};
+	return {
+		"grid-col-start": start,
+		"grid-col-end": Number(end) + 1,
+	};
+}
+---
+
+<div class="cell" data-span={span}>
+	<slot />
+</div>
+
+<style define:vars={parse(span)}>
+	.cell {
+		display: block;
+		appearance: none;
+	}
+
+	.cell[data-span] {
+		grid-column-end: span var(--grid-col-end);
+	}
+
+	.cell[data-span*="+"],
+	.cell[data-span*="-"],
+	.cell[data-span*=".."] {
+		grid-column-start: var(--grid-col-start);
+	}
+
+	.cell[data-span*="-"],
+	.cell[data-span*=".."] {
+		grid-column-end: var(--grid-col-end);
+	}
+
+	.cell[data-span="row"] {
+		grid-column: 1 / -1;
+	}
+</style>
