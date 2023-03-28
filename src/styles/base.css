@@ -6,7 +6,7 @@
 	--baseline: calc(var(--lineHeight) / 2);
 	--fg-rgb: 0,0,0;
 	--fg-a: 1;
-	--fg: rgba(var(--fg-rgb), var(--fg-a));
+	--fg: rgba(var(--fb-rgb), var(--fg-a));
 	--bg: white;
 	--sel: #bca;
 	--alp: #abc;
@@ -17,12 +17,16 @@
 	--h2-size: 2.2rem;
 	--h3-size: 1.4rem;
 	--h4-size: 1.1rem;
+	--grene: #005f5a;
+	--grey: #f3e9eb;
 }
 
 html {
+	font-family: "Lexend DecaVariable", sans-serif;
+	font-weight: 300;
 	font-size: var(--fontSize);
 	line-height: var(--lineHeight);
-	background-color: var(--bg);
+	background-color: var(--grey);
 	color: var(--fg);
 }
 
@@ -38,11 +42,11 @@ body {
 
 address, article, aside, blockquote, dd, dl, dt, fieldset, figure, form,
 r-grid, h1, h2, h3, h4, h5, h6, li, nav, ol, p, pre, table, tfoot, ul, video {
-  margin-top: var(--blockSpacingTop);
-  margin-bottom: var(--blockSpacingBottom);
+	margin-top: var(--blockSpacingTop);
+	margin-bottom: var(--blockSpacingBottom);
 }
 h1, .h1 {
-	font-weight:bold;
+	font-weight: 600;
 	letter-spacing: -0.05em;
 	font-size: var(--h1-size);
 	line-height: calc(var(--lineHeight)*2);
@@ -50,7 +54,7 @@ h1, .h1 {
 }
 
 h2, .h2 {
-	font-weight: bold;
+	font-weight: 500;
 	letter-spacing: -0.03em;
 	font-size: var(--h2-size);
 	line-height: calc(var(--lineHeight)*2);
@@ -58,18 +62,18 @@ h2, .h2 {
 }
 
 h3, .h3, h4, .h4 {
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  font-size: var(--h3-size);
-  padding-top: calc(var(--baseline) * 0.75);
-  padding-bottom: calc(var(--baseline) * 0.25);
-  margin-bottom: var(--baseline);
+	font-weight: 400;
+	letter-spacing: -0.02em;
+	font-size: var(--h3-size);
+	padding-top: calc(var(--baseline) * 0.75);
+	padding-bottom: calc(var(--baseline) * 0.25);
+	margin-bottom: var(--baseline);
 }
 
 h4, .h4 {
-  font-weight: 700;
-  letter-spacing: -0.012em;
-  font-size: var(--h4-size);
+	font-weight: 400;
+	letter-spacing: -0.012em;
+	font-size: var(--h4-size);
 }
 
 nav {
@@ -90,3 +94,8 @@ ul > li {
 	font-size: 0.875rem;
 	padding: 0.625rem;
 }
+
+li:has(a.italic)  {
+	list-style: square;
+}
+

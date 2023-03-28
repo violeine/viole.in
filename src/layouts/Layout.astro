@@ -5,11 +5,14 @@ export interface Props {
   cls?: string;
 }
 
-const { title, icon, cls } = Astro.props;
+const { title, icon } = Astro.props;
 import { listContent, toURL } from "@/lib/ash.js";
-import Json from "@/components/Json.astro";
+
+import "@fontsource/lexend-deca/variable.css";
+
 import "@/styles/reset.css";
 import "@/styles/base.css";
+
 const data = await listContent(Astro.url.pathname);
 ---
 

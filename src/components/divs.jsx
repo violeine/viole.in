@@ -7,7 +7,7 @@ export const Cards = () => {
   const length = 72;
   const [play, setPlay] = useState(false);
   return (
-    <div className=" w-screen h-screen border border-slate-900 relative mx-auto overflow-hidden">
+    <div className="border border-slate-900 relative mx-auto overflow-hidden">
       <button
         className="bg-green-200 px-5 py-2 rounded absolute left-[50%] bottom-5"
         onClick={() => setPlay(!play)}
@@ -15,9 +15,8 @@ export const Cards = () => {
         start
       </button>
       <div
-        className={`absolute -bottom-[200px] left-[50%] z-50 ${
-          play ? "spin" : ""
-        }`}
+        className={`absolute -bottom-[200px] left-[50%] z-50 ${play ? "spin" : ""
+          }`}
       >
         {range(length).map((rotation, _, a) => (
           <Card
@@ -50,6 +49,7 @@ const Card = ({ r }) => {
   );
 };
 const normalize = (r) => (360 + (r % 360)) % 360;
+
 const translate = (rotation) => {
   // const sinSign = [0, 1, 0, -1];
   // const cosSign = [1, 0, -1, 0];

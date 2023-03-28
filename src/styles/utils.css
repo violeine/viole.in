@@ -1,0 +1,7 @@
+.flex {
+	display: flex;
+}
+
+.rounded {
+	border-radius: 99999px;
+}

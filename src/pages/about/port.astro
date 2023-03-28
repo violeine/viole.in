@@ -1,0 +1,60 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/utils.css";
+---
+
+<Layout
+  title="hi."
+  icon="🌲"
+  cls="bg-gray-800 h-screen w-screen text-gray-50 flex flex-col items-center justify-center font-light"
+>
+  <section>
+    <img class="rounded" src="https://github.com/violeine.png" alt="" />
+    <div class="info">
+      <p>
+        <span class="name">hà</span>
+        <br />@violeine<br />mar20. web weaver.
+      </p>
+    </div>
+    <div>
+      <ul>
+        <li>
+          <a href="https://github.com/violeine" target="_blank" title="github"
+            >github /violeine</a
+          >
+        </li>
+        <li>
+          <a target="_blank" href="https://t.me/violeine" title="telegram"
+            >telegram /violeine</a
+          >
+        </li>
+        <li>
+          <a
+            target="_blank"
+            href="https://discordapp.com/channels/@me/239745725922017282"
+            title="discord">discord @violeine#6422</a
+          >
+        </li>
+        <li><a title="mail" href="mailto:hi@viole.in">mail hi@viole.in</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .name {
+    font-weight: 400;
+  }
+
+  section {
+    display: flex;
+    gap: 20px;
+  }
+  img {
+    height: 128px;
+    width: 128px;
+  }
+  ul {
+    list-style: none;
+  }
+</style>
