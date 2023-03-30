@@ -14,16 +14,20 @@ import "@/styles/reset.css";
 import "@/styles/base.css";
 
 const data = await listContent(Astro.url.pathname);
-const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-1);
+const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
+console.log(title);
 ---
 
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/font-et-book/0.1/et-book.min.css"
+    />
     <title>{title}</title>
     <link
       rel="icon"
@@ -32,29 +36,29 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-1);
       }</text></svg>`}
     />
   </head>
-  <nav>
-    <h2><a href="/">(λ)</a></h2>
-    {
-      data.map((el) => (
-        <ul class="compact">
-          {el.map((a) => (
-            <li>
-              <a
-                class:list={[
-                  { italic: Astro.url.pathname.includes(`/${toURL(a)}`) },
-                  { italic: Astro.url.pathname === `/${toURL(a)}` },
-                ]}
-                href={`/${toURL(a)}`}
-              >
-                {toURL(a).split("/").at(-1)}
-              </a>
-            </li>
-          ))}
-        </ul>
-      ))
-    }
-  </nav>
-  <slot />
-
-
+  <body>
+    <nav>
+      <h2><a href="/">(λ)</a></h2>
+      {
+        data.map((el) => (
+          <ul class="compact">
+            {el.map((a) => (
+              <li>
+                <a
+                  class:list={[
+                    { italic: Astro.url.pathname.includes(`/${toURL(a)}`) },
+                    { italic: Astro.url.pathname === `/${toURL(a)}` },
+                  ]}
+                  href={`/${toURL(a)}`}
+                >
+                  {toURL(a).split("/").at(-1)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </nav>
+    <slot />
+  </body>
 </html>

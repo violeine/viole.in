@@ -8,8 +8,6 @@
 	--fg-a: 1;
 	--fg: rgba(var(--fb-rgb), var(--fg-a));
 	--bg: white;
-	--sel: #bca;
-	--alp: #abc;
 	--columnGap: calc(var(--lineHeight)*2);
 	--blockSpacingTop: 0;
 	--blockSpacingBottom: calc(var(--lineHeight)*1);
@@ -17,8 +15,9 @@
 	--h2-size: 2.2rem;
 	--h3-size: 1.4rem;
 	--h4-size: 1.1rem;
-	--grene: #005f5a;
+	--grene: #199b8d;/*#005f5a;*/
 	--grey: #f3e9eb;
+	--bleu: #000;
 }
 
 html {
@@ -33,12 +32,23 @@ html {
 body {
 	box-sizing: border-box;
 	margin: 0 auto;
-	max-width: 800px;
+	max-width: 1600px;
 	min-height: 100vh;
 	overflow-x: hidden;
 	padding: calc(var(--lineHeight) * 2);
 	padding-bottom: calc(var(--lineHeight) * 3);
 }
+
+body::after {
+    content: "";
+    inset: 0;
+    position: fixed;
+    pointer-events: none;
+    background: url("/favicon.svg");
+    /* filter: url(#noiseFilter); */
+    /* mix-blend-mode: hard-light; */
+    opacity: 0.025;
+  }
 
 address, article, aside, blockquote, dd, dl, dt, fieldset, figure, form,
 r-grid, h1, h2, h3, h4, h5, h6, li, nav, ol, p, pre, table, tfoot, ul, video {

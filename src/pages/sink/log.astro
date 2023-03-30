@@ -1,0 +1,48 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+import Grid from "@/components/grid.astro";
+
+const res = await fetch("https://regret.rat-bushi.ts.net/api", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer test",
+  },
+  body: JSON.stringify({
+    method: "logseq.db.q",
+    args: ["(property :quote)"],
+  }),
+}).then((r) => r.json());
+const transform = res.map((el) => el.properties);
+---
+
+<Layout>
+  <Grid columns={3} gap={8}>
+    {
+      transform.map((t) => (
+        <div class="ig">
+          <p>
+            <q>{t.quote}</q>
+            <br />—{t.from ?? t?.book}
+          </p>
+        </div>
+      ))
+    }
+  </Grid>
+</Layout>
+
+<style>
+  .ig {
+    font-family: "et-book";
+    background-color: black;
+    text-align: right;
+    justify-content: right;
+    aspect-ratio: 1 / 1;
+    font-size: 16px;
+    padding: 8px;
+    color: var(--grey);
+    display: flex;
+    align-items: center;
+  }
+</style>

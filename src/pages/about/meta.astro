@@ -1,5 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Grid from "@/components/grid.astro";
+import Cell from "@/components/cell.astro";
 ---
 
 <Layout title="hi." icon="🌲">
@@ -12,14 +14,27 @@ import Layout from "@/layouts/Layout.astro";
     eligendi incidunt.
   </p>
   <pre>pre</pre>
-  <kbd>pre</kbd>
   <div class="swatches">
-    <q>Four colors should be more than enough for any interfaces</q>
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+    <a href="https://wiki.xxiivv.com/site/theme.html">
+      <q>Four colors should be more than enough for any interfaces</q>
+    </a>
+    <div style="--k:var(--bg)"></div>
+    <div style="--k:var(--grene)"></div>
+    <div style="--k:var(--grey)"></div>
+    <div style="--k:var(--bleu)"></div>
   </div>
 </Layout>
+
+<style>
+  .swatches {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .swatches > div {
+    height: 24px;
+    width: 24px;
+    border: 1px solid black;
+    background-color: var(--k);
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
-import {Code} from 'astro/components'
-const { data } = Astro.props
+import { Code } from "astro/components";
+const { data } = Astro.props;
 ---
+
 <Code code={JSON.stringify(data, null, 2)} lang="json" />
