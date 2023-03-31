@@ -1,13 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Grid from "@/components/grid.astro";
-import Cell from "@/components/cell.astro";
+import { Theme } from "@/components/theme";
 ---
 
 <Layout title="hi." icon="🌲">
-  <h1>hi.</h1>
-  <h2>hi.</h2>
-  <h3>hi.</h3>
+  <h1>h1</h1>
+  <h2>h2</h2>
+  <h3>h3</h3>
   <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo odio
     perspiciatis nesciunt? Quod nam tempora, excepturi sapiente officiis
@@ -16,19 +15,15 @@ import Cell from "@/components/cell.astro";
   <pre>pre</pre>
   <div class="swatches">
     <a href="https://wiki.xxiivv.com/site/theme.html">
-      <q>Four colors should be more than enough for any interfaces</q>
+      <q>Four colors should be more than enough for any interfaces.</q>
     </a>
-    <div style="--k:var(--bg)"></div>
-    <div style="--k:var(--grene)"></div>
-    <div style="--k:var(--grey)"></div>
-    <div style="--k:var(--bleu)"></div>
+    <Theme client:load />
   </div>
 </Layout>
 
 <style>
   .swatches {
     display: flex;
-    align-items: baseline;
     gap: 8px;
   }
   .swatches > div {

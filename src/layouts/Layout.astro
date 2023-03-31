@@ -2,20 +2,21 @@
 export interface Props {
   title?: string;
   icon?: string;
-  cls?: string;
+  span?: string | number;
 }
 
-const { icon } = Astro.props;
+const { icon, span } = Astro.props;
 import { listContent, toURL } from "@/lib/ash.js";
 
 import "@fontsource/lexend-deca/variable.css";
 
 import "@/styles/reset.css";
 import "@/styles/base.css";
+import Grid from "@/components/grid.astro";
+import Cell from "@/components/cell.astro";
 
 const data = await listContent(Astro.url.pathname);
 const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
-console.log(title);
 ---
 
 <html lang="en">
@@ -37,28 +38,34 @@ console.log(title);
     />
   </head>
   <body>
-    <nav>
-      <h2><a href="/">(λ)</a></h2>
-      {
-        data.map((el) => (
-          <ul class="compact">
-            {el.map((a) => (
-              <li>
-                <a
-                  class:list={[
-                    { italic: Astro.url.pathname.includes(`/${toURL(a)}`) },
-                    { italic: Astro.url.pathname === `/${toURL(a)}` },
-                  ]}
-                  href={`/${toURL(a)}`}
-                >
-                  {toURL(a).split("/").at(-1)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        ))
-      }
-    </nav>
-    <slot />
+    <Grid columns={8}>
+      <Cell span="1-2">
+        <nav>
+          <h2><a href="/">(λ)</a></h2>
+          {
+            data.map((el) => (
+              <ul class="compact">
+                {el.map((a) => (
+                  <li>
+                    <a
+                      class:list={[
+                        { italic: Astro.url.pathname.includes(`/${toURL(a)}`) },
+                        { italic: Astro.url.pathname === `/${toURL(a)}` },
+                      ]}
+                      href={`/${toURL(a)}`}
+                    >
+                      {toURL(a).split("/").at(-1)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ))
+          }
+        </nav>
+      </Cell>
+      <Cell span={span ?? "3.."}>
+        <slot />
+      </Cell>
+    </Grid>
   </body>
 </html>

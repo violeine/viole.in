@@ -30,7 +30,7 @@ async function list(dir, currentPath) {
           new URL(e.name, dir).pathname.split("/src/pages/").at(-1),
           await list(new URL(e.name, dir), currentPath),
         ];
-      } else if (!e.name.startsWith("index")) {
+      } else if (!e.name.startsWith("index") && !e.name.startsWith("404")) {
         return new URL(e.name, dir).pathname.split("/src/pages/").at(-1);
       }
     })

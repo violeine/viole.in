@@ -1,6 +1,6 @@
 {
   "method": "logseq.db.q",
   "args": [
-    "(property :images )"
+    "(and (task TODO) [[habit]] (not [[logseq/template]] ))"
   ]
 }

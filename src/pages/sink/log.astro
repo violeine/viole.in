@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 
 import Grid from "@/components/grid.astro";
+import { Theme } from "@/components/theme";
 
 const res = await fetch("https://regret.rat-bushi.ts.net/api", {
   method: "POST",
@@ -14,6 +15,7 @@ const res = await fetch("https://regret.rat-bushi.ts.net/api", {
     args: ["(property :quote)"],
   }),
 }).then((r) => r.json());
+
 const transform = res.map((el) => el.properties);
 ---
 
@@ -23,26 +25,31 @@ const transform = res.map((el) => el.properties);
       transform.map((t) => (
         <div class="ig">
           <p>
-            <q>{t.quote}</q>
+            <q>{t.quote.split(".").join(".\n")}</q>
             <br />—{t.from ?? t?.book}
           </p>
         </div>
       ))
     }
+    <Theme client:load />
   </Grid>
 </Layout>
 
 <style>
   .ig {
     font-family: "et-book";
-    background-color: black;
+    background-color: var(--sel);
+    color: var(--app);
     text-align: right;
     justify-content: right;
     aspect-ratio: 1 / 1;
-    font-size: 16px;
     padding: 8px;
-    color: var(--grey);
     display: flex;
     align-items: center;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .ig q {
+    font-size: inherit;
   }
 </style>
