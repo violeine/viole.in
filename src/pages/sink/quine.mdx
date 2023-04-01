@@ -4,12 +4,12 @@ layout: '@/layouts/Blog.astro'
 ---
 import Quine from '@/components/quine.astro'
 
-### a component that print itself
+## a component that print itself
 
 <Quine path="pages/sink/quine.mdx"  />
 
 pretty neat for writing blogs, docs that need both source code and 
-component available
+component available.
 
 like this `Quine` component <Quine path="components/quine.astro"/>
 
@@ -17,4 +17,4 @@ and `Quine` can also take an `optional range` for more specific
 explaination
 
 I use `node:fs` to fetch the file and print it in `Shiki` code block
-<Quine path="components/quine.astro" line="7-14"/>
+<Quine path="components/quine.astro" line="7-14" lang="js"/>

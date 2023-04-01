@@ -5,11 +5,12 @@ interface Props {
 }
 
 const { columns, gap } = Astro.props;
+//TODO: fix column gap
 ---
 
 <div class="grid" data-grid={columns}><slot /></div>
 
-<style define:vars={{ columns, gap: gap ? `${gap}px` : "var(--columnGap)" }}>
+<style define:vars={{ columns, gap: gap ? `${gap}px` : "var(--collumn-gap)" }}>
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--columns), 1fr);

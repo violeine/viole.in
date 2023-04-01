@@ -9,8 +9,8 @@ const { icon, span } = Astro.props;
 import { listContent, toURL } from "@/lib/ash.js";
 
 import "@fontsource/lexend-deca/variable.css";
+import "@fontsource/jetbrains-mono/variable.css";
 
-import "@/styles/reset.css";
 import "@/styles/base.css";
 import Grid from "@/components/grid.astro";
 import Cell from "@/components/cell.astro";
@@ -41,7 +41,7 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
     <Grid columns={8}>
       <Cell span="1-2">
         <nav>
-          <h2><a href="/">(λ)</a></h2>
+          <h2 class="logo"><a href="/">(λ)</a></h2>
           {
             data.map((el) => (
               <ul class="compact">
@@ -49,8 +49,8 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
                   <li>
                     <a
                       class:list={[
-                        { italic: Astro.url.pathname.includes(`/${toURL(a)}`) },
-                        { italic: Astro.url.pathname === `/${toURL(a)}` },
+                        { active: Astro.url.pathname.includes(`/${toURL(a)}`) },
+                        { active: Astro.url.pathname === `/${toURL(a)}` },
                       ]}
                       href={`/${toURL(a)}`}
                     >
@@ -69,3 +69,23 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
     </Grid>
   </body>
 </html>
+
+<style>
+  nav {
+    display: flex;
+    gap: var(--columnGap);
+    position: fixed;
+  }
+
+  .active {
+    color: var(--bg);
+    font-weight: 400;
+  }
+
+  .logo {
+    & a,
+    a:hover {
+      text-decoration: none;
+    }
+  }
+</style>

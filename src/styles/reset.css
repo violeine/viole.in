@@ -23,6 +23,7 @@ img {
 /* removes spacing between cells in tables */
 table {
     border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
@@ -68,6 +69,6 @@ meter {
     -webkit-user-drag: element;
 }
 
-pre {
+:where(pre) {
 	all: revert;
 }

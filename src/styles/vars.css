@@ -1,0 +1,58 @@
+:root {
+	--fontSize: 16px;
+
+	--sansFont: "Lexend DecaVariable";
+	--monoFont: "Jetbrains MonoVariable";
+	--serifFont: "et-book";
+
+	--lineHeight: calc(var(--fontSize) * 1.5); /* vertical spacing */
+	--baseline: calc(var(--lineHeight) / 2); /* horizontal & vertical spacing */
+
+	/* block spacing */
+	--blockSpacingTop: 0px;
+	--blockSpacingBottom: var(--lineHeight);
+
+	--hrSize: 2px;
+
+	/* heading size */
+	--h1-size: 2.8rem;
+	--h2-size: 2.2rem;
+	--h3-size: 1.4rem;
+	--h4-size: 1.1rem;
+
+	/* grid spacing */
+	--columnGap: calc(var(--lineHeight) * 2);
+	--rowGap: calc(var(--lineHeight));
+
+	/* 1 pixel */
+	--displayScale: 1;
+	--pixel: 1px;
+
+	/* colors */
+	--bg: #199b8d;/*#005f5a;*/
+	--app: #f3e9eb;
+	--fg: #000000;
+	--sel: #123456;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 1.5dppx) { :root {
+  --displayScale: 2;
+  --pixel: 0.5px;
+}}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2.5),
+       only screen and (min-device-pixel-ratio: 2.5),
+       only screen and (min-resolution: 2.5dppx) { :root {
+  --displayScale: 3;
+  --pixel: 0.34px;
+}}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5),
+       only screen and (min-device-pixel-ratio: 3.5),
+       only screen and (min-resolution: 3.5dppx) { :root {
+  --displayScale: 4;
+  --pixel: 0.25px;
+}}
+
