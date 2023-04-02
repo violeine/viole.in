@@ -78,7 +78,7 @@ pre {
   border: solid 2px var(--fg);
   font-size: 0.875rem;
   padding: 0.625rem;
-  background-color: var(--app) !important;
+  background-color: var(--app);
   & code, & tt {
     white-space: pre;
     word-wrap: normal;

@@ -1,0 +1,63 @@
+---
+import Cell from "@/components/cell.astro";
+import Grid from "@/components/grid.astro";
+import Layout from "@/layouts/Layout.astro";
+import { Editor, REPL } from "@/lib/lisp/index.jsx";
+---
+
+<Layout noScroll>
+  <div class="flex">
+    <h2>Lisp</h2>
+    <p>Revenge of the nerd.</p>
+    <div class="g">
+      <Editor client:load />
+      <REPL client:load />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .flex {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+  .g {
+    display: grid;
+    flex: 1;
+    gap: var(--baseline);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    min-height: 0;
+
+    & :global(.editor) {
+      background-color: rgba(0, 0, 0, 0.03);
+      font-size: 0.875rem;
+      padding: 0.625rem;
+      border-radius: 0.3125rem;
+      border: solid 2px var(--fg);
+      order: 1;
+    }
+    & :global(.repl) {
+      min-height: 0;
+      overflow: scroll;
+      order: 2;
+      > :global(*) {
+        overflow-anchor: none;
+      }
+      > :global(.anchor) {
+        overflow-anchor: auto;
+        height: 1px;
+      }
+    }
+    & :global(div:has(button)) {
+      > :global(button) {
+        border: solid 2px var(--fg);
+        border-radius: 0.3125rem;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
+      order: 3;
+    }
+  }
+</style>

@@ -3,9 +3,10 @@ export interface Props {
   title?: string;
   icon?: string;
   span?: string | number;
+  noScroll?: boolean;
 }
 
-const { icon, span } = Astro.props;
+const { icon, span, noScroll } = Astro.props;
 import { listContent, toURL } from "@/lib/ash.js";
 
 import "@fontsource/lexend-deca/variable.css";
@@ -37,7 +38,7 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
       }</text></svg>`}
     />
   </head>
-  <body>
+  <body class:list={{ noScroll }}>
     <Grid columns={8}>
       <Cell span="1-2">
         <nav>
@@ -68,24 +69,27 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
       </Cell>
     </Grid>
   </body>
-</html>
 
-<style>
-  nav {
-    display: flex;
-    gap: var(--columnGap);
-    position: fixed;
-  }
-
-  .active {
-    color: var(--bg);
-    font-weight: 400;
-  }
-
-  .logo {
-    & a,
-    a:hover {
-      text-decoration: none;
+  <style>
+    .noScroll {
+      display: flex;
+      height: 100vh;
     }
-  }
-</style>
+    nav {
+      display: flex;
+      gap: var(--columnGap);
+    }
+
+    .active {
+      color: var(--bg);
+      font-weight: 400;
+    }
+
+    .logo {
+      & a,
+      a:hover {
+        text-decoration: none;
+      }
+    }
+  </style>
+</html>
