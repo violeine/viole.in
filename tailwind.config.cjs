@@ -41,7 +41,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Lexend Deca", ...defaultTheme.fontFamily.sans],
+        sans: ["Lexend DecaVariable", ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         "prose-80": "80ch",

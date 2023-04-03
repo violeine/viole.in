@@ -61,6 +61,9 @@ pre, code, tt, .code, .monospace {
 }
 /*pre { white-space: pre-wrap; }*/
 /*code { white-space: nowrap; }*/
+.astro-code {
+  background-color: var(--app) !important;
+}
 
 b pre, b code, b tt, b .code, b .monospace {
   font-weight: 600;
