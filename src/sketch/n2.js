@@ -24,15 +24,15 @@ const margin = 40;
 const points = createGrid();
 
 export const dimensions = {
-	width: 1048,
-	height: 1048,
+	width: 512,
+	height: 512,
 }
 
 
 export function draw(ctx) {
 	ctx.fillStyle = "black";
 
-	ctx.fillRect(0, 0, 1048, 1048);
+	ctx.fillRect(0, 0, 1024, 1024);
 	points.forEach(({ pos: [u, v], rad, rotate }) => {
 		const x = lerp(margin, 512 - margin, u);
 		const y = lerp(margin, 512 - margin, v);

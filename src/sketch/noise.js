@@ -2,8 +2,8 @@ import { lerp } from "@/lib/mae.js";
 import { noise2D } from "@/lib/ron.js";
 
 export const dimensions = {
-	width: 1048,
-	height: 1048,
+	width: 512,
+	height: 512,
 }
 
 function createGrid() {
@@ -31,7 +31,7 @@ const points = createGrid();
 const margin = 40;
 export function draw(ctx) {
 	ctx.fillStyle = "white";
-	ctx.fillRect(0, 0, 1024, 1024);
+	ctx.fillRect(0, 0, 512, 512);
 
 	points.forEach(({ pos: [u, v], rad, rotate }) => {
 		const x = lerp(margin, 512 - margin, u);
@@ -41,7 +41,7 @@ export function draw(ctx) {
 		ctx.font = `${rad * 400}px "Arial"`;
 		ctx.translate(x, y);
 		ctx.rotate(rotate);
-		ctx.fillText("-", 0, 0);
+		ctx.fillText(".", 0, 0);
 		ctx.restore();
 	});
 }
