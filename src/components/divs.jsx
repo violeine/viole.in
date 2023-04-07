@@ -1,4 +1,4 @@
-import { range } from "@/lib/m";
+import { range } from "@/lib/mae";
 import { useState } from "react";
 import "tailwindcss/tailwind.css";
 

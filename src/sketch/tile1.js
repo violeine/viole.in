@@ -38,9 +38,11 @@ function drawArc([x, y, l1, l2]) {
 // figuring out how to use lerp properly
 export function draw(ctx) {
 	ctx.fillStyle = "#f3e9eb";
+	ctx.save();
 	ctx.translate(0.5, 0.5);
 	ctx.fillRect(0, 0, dimensions.width, dimensions.height);
 	rect.forEach((d) => d(ctx));
+	ctx.restore();
 }
 
 

@@ -1,8 +1,10 @@
 import { pick } from '@/lib/ron'
+
 export const dimensions = {
 	width: 512,
 	height: 512,
 }
+
 const rectArray = (num, length) => {
 	const points = [];
 	for (let x = 0; x < num * length; x += length) {
@@ -36,8 +38,10 @@ function drawArc([x, y, l1, l2]) {
 
 // figuring out how to use lerp properly
 export function draw(ctx) {
+	ctx.save();
 	ctx.fillStyle = "#f3e9eb";
 	ctx.translate(0.5, 0.5);
 	ctx.fillRect(0, 0, dimensions.width, dimensions.height);
 	rect.forEach((d) => d(ctx));
+	ctx.restore();
 }
