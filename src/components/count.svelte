@@ -1,14 +1,6 @@
 <script>
-	let count = 0;
-
-	function handleClick() {
-		count += 1;
-	}
+	import { draw, dimensions } from "@/sketch/animate.js";
+	import Sketch from "@/lib/sketch.svelte";
 </script>
 
-<div>
-	<button on:click={handleClick}>
-		Svetle Count clicks: {count}
-	</button>
-	<button> hello </button>
-</div>
+<Sketch {draw} dimension={dimensions} />

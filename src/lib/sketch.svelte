@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+	import { animate } from "./animate";
 	let canvas;
 	export let dimension;
 	export let draw;
@@ -14,29 +15,7 @@
 		ctx.imageSmoothingEnabled = false;
 		ctx.scale(dpi, dpi);
 		if (dimension.animate) {
-			const { duration } = dimension.animate;
-			let frame;
-			let elapsed = 0; //time start
-			let lastTime = performance.now();
-			(function loop() {
-				frame = requestAnimationFrame(loop);
-				const beginTime = performance.now();
-				const dt = beginTime - lastTime;
-				elapsed += dt;
-				lastTime = beginTime;
-
-				//restart the loop when elapsed exceed defined duration
-				if (elapsed > duration) {
-					elapsed = elapsed % duration; //wrap around duration
-				}
-				draw(ctx, {
-					elapsed,
-					playhead: elapsed / duration, //normalize duration between 0..1
-				});
-			})();
-			return () => {
-				cancelAnimationFrame(frame);
-			};
+			return animate(dimension.animate, (arg) => draw(ctx, arg));
 		} else {
 			draw(ctx);
 		}
