@@ -334,7 +334,7 @@ table {
   --border-width: 1px;
   --border-opacity: 0.15;
   --border-color:
-    rgba(var(--foreground-color-rgb), calc(var(--foreground-color-a) * var(--border-opacity)));
+    rgba(var(--fg-rgb), calc(var(--fg-a) * var(--border-opacity)));
 
   /*width: 100%;*/
   overflow: auto;

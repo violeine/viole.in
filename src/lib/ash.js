@@ -1,5 +1,7 @@
 import { readdir } from "node:fs/promises";
 
+const pagesDir = `${process.cwd()}/src/pages/`
+
 export function toURL(url) {
   return url.split(".").slice(0, -1).join(".").trim() || url;
 }
@@ -10,7 +12,7 @@ export const groupBy = (x, f) =>
 
 export async function listContent(dir) {
   const url = new URL(
-    import.meta.env.DEV ? "../pages/" : "../src/pages/",
+    pagesDir,
     import.meta.url
   );
   const currentPath = dir?.split("/") ?? [];
@@ -30,7 +32,7 @@ async function list(dir, currentPath) {
           new URL(e.name, dir).pathname.split("/src/pages/").at(-1),
           await list(new URL(e.name, dir), currentPath),
         ];
-      } else if (!e.name.startsWith("index") && !e.name.startsWith("404")) {
+      } else if (!e.name.startsWith("index") && !e.name.startsWith("404") && !e.name.startsWith("[...slug]")) {
         return new URL(e.name, dir).pathname.split("/src/pages/").at(-1);
       }
     })

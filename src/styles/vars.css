@@ -33,6 +33,8 @@
 	--app: #f3e9eb;
 	--fg: #000000;
 	--sel: #123456;
+	--fg-rgb: 0,0,0;
+	--fg-a: 1;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),

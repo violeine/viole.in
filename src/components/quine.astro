@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import { Code } from "astro/components";
 const { path, line, lang } = Astro.props;
-const relativePath = import.meta.env.MODE === "development" ? "../" : "../src/";
+const relativePath = `${process.cwd()}/src/`;
 const url = new URL(`${relativePath}${path}`, import.meta.url);
 const [start, end] = line ? line.split("-") : [undefined];
 const text = await fs.readFile(url, "utf-8");

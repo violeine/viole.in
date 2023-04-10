@@ -18,7 +18,6 @@ body {
   padding-bottom: calc(var(--lineHeight) * 3);
   background:  var(--app);
   color:       var(--fg);
-  height: 100%;
 }
 
 @media only screen and (max-width: 600px) {

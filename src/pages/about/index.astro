@@ -1,14 +1,32 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+const dateFormat = new Intl.DateTimeFormat();
+const entries = await getCollection("about");
 ---
 
 <Layout icon="📠">
   <h2>about<span>:blank</span></h2>
   <q>Blog was made to be built, not to be written.</q>
+  <table>
+    <tr>
+      <th>about:</th>
+      <th>date</th>
+    </tr>
+    {
+      entries.map((e) => (
+        <tr>
+          <td>
+            <a href={`/about/${e.slug}`}>{e.data.title}</a>
+          </td>
+          <td>{dateFormat.format(e.data.date)}</td>
+        </tr>
+      ))
+    }
+  </table>
+  <style>
+    h2 > span {
+      color: var(--bg);
+    }
+  </style>
 </Layout>
-
-<style>
-  h2 > span {
-    color: var(--bg);
-  }
-</style>
