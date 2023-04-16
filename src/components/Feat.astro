@@ -1,0 +1,28 @@
+---
+const { id } = Astro.props;
+console.log(id);
+const pl = {
+	method: "logseq.DB.datascriptQuery",
+	args: [
+		`[:find (pull ?b [*])
+  :where [?b :block/parent ${id}]
+]
+`,
+	],
+};
+const v = await fetch("https://regret.rat-bushi.ts.net/api", {
+	method: "POST",
+	headers: {
+		"Content-Type": "application/json",
+		Authorization: "Bearer test",
+	},
+	body: JSON.stringify(pl),
+}).then((r) => r.json());
+
+const content = v.flat(Infinity).map((e) => e.content);
+console.log(content);
+---
+
+<ul>
+	{content.map((el) => <li>{el}</li>)}
+</ul>

@@ -10,7 +10,12 @@ const { columns, gap } = Astro.props;
 
 <div class="grid" data-grid={columns}><slot /></div>
 
-<style define:vars={{ columns, gap: gap ? `${gap}px` : "var(--columnGap)" }}>
+<style
+  define:vars={{
+    columns,
+    gap: gap !== undefined ? `${gap}px` : "var(--columnGap)",
+  }}
+>
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--columns), 1fr);

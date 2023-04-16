@@ -1,6 +1,6 @@
 {
   "method": "logseq.db.q",
   "args": [
-    "(and (task TODO) [[habit]] (not [[logseq/template]] ))"
+    "(and (page [[cv]]) (property :cv experiences))"
   ]
 }

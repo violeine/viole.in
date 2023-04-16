@@ -12,7 +12,7 @@
 	--blockSpacingTop: 0px;
 	--blockSpacingBottom: var(--lineHeight);
 
-	--hrSize: 2px;
+	--hrThickness: 2px;
 
 	/* heading size */
 	--h1-size: 2.8rem;

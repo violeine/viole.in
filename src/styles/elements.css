@@ -20,7 +20,7 @@ hr:last-child {
 }
 hr, hr:only-child {
   border: none;
-  background: var(--foreground-color);
+  background: var(--fg);
   height: var(--hrThickness);
   margin-top: calc(var(--lineHeight) - calc(var(--hrThickness) / 2));
   margin-bottom: calc(var(--lineHeight) - calc(var(--hrThickness) / 2));
@@ -290,7 +290,9 @@ ul, ol {
   list-style-position: outside;
   --list-indentation: 2em;
 }
-
+ul {
+  padding-left: 1.3em;
+}
 ul.compact > li, ol.compact > li {
   margin-bottom: 0;
 }
