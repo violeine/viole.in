@@ -3,18 +3,9 @@ import Layout from "@/layouts/Layout.astro";
 
 import Grid from "@/components/grid.astro";
 import { Theme } from "@/components/theme";
+import { q } from "@/lib/log";
 
-const res = await fetch("https://regret.rat-bushi.ts.net/api", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer test",
-  },
-  body: JSON.stringify({
-    method: "logseq.db.q",
-    args: ["(property :quote)"],
-  }),
-}).then((r) => r.json());
+const res = await q(["(property :quote)"]);
 
 const transform = res.map((el) => el.properties);
 ---

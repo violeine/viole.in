@@ -1,8 +1,0 @@
----
-import { fetchContent } from "./fetch.js";
-import { Code } from "astro/components";
-const { link } = Astro.props;
-const content = await fetchContent(link);
----
-
-<Code code={content} lang="jsx" wrap={null} />

@@ -1,37 +1,27 @@
 ---
 import Grid from "@/components/grid.astro";
 import Cell from "@/components/cell.astro";
-import Feat from '@/components/Feat.astro';
+import Feat from "@/components/Feat.astro";
+import { datascriptQuery } from "@/lib/log";
 
 import "@fontsource/lexend-deca/variable.css";
 import "@/styles/base.css";
 
-const pl = (t) => ({
-  method: "logseq.DB.datascriptQuery",
-  args: [
-    `
-[:find (pull ?b [*])
-  :where  [?b :block/parent ?parent]
-           [?parent :block/properties ?prop]
-           [(get ?prop :cv) ?v]
-           [(= ?v "${t}")]
-           [?parent :block/page ?page]
-           [?page :block/name "cv"]
-]
+const pl = (t) => [
+  ` [:find (pull ?b [*])
+    :where  [?b :block/parent ?parent]
+    [?parent :block/properties ?prop]
+    [(get ?prop :cv) ?v]
+    [(= ?v "${t}")]
+    [?parent :block/page ?page]
+    [?page :block/name "cv"]
+    ]
 `,
-  ],
-});
+];
 
 const t = async (x) => {
-  const v = await fetch("https://regret.rat-bushi.ts.net/api", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer test",
-    },
-    body: JSON.stringify(pl(x)),
-  }).then((r) => r.json());
-  return v.flat(Infinity).map((e) => ({ id: e.id, ...e.properties}));
+  const v = await datascriptQuery(pl(x));
+  return v.flat(Infinity).map((e) => ({ id: e.id, ...e.properties }));
 };
 
 const [[info], experience, project, education] = await Promise.all([
@@ -40,7 +30,6 @@ const [[info], experience, project, education] = await Promise.all([
   t("personal project"),
   t("education"),
 ]);
-console.log("h,", experience);
 ---
 
 <html lang="en">
@@ -99,14 +88,17 @@ console.log("h,", experience);
             <Grid columns={4} gap={12}>
               <Cell span="1+1">
                 <h4>
-                {c.title} @ <span class="bold"><a href={`https://${c.link}`}>{c.company}</a></span>
-</h4>
+                  {c.title} @{" "}
+                  <span class="bold">
+                    <a href={`https://${c.link}`}>{c.company}</a>
+                  </span>
+                </h4>
               </Cell>
               <Cell span="3-4">
                 {c.from} - {c.to}
               </Cell>
               <Cell span="row">
-                <Feat id={c.id}/>
+                <Feat id={c.id} />
               </Cell>
               <Cell span="row">
                 <span class="italic">Technologies: {c.technologies}</span>
@@ -123,7 +115,10 @@ console.log("h,", experience);
       {
         project.map((c) => (
           <Cell span="row">
-            <a class="bold" href={`https://${c.link}`}>{c.project}</a>: {c.details}
+            <a class="bold" href={`https://${c.link}`}>
+              {c.project}
+            </a>
+            : {c.details}
           </Cell>
         ))
       }
@@ -137,7 +132,7 @@ console.log("h,", experience);
     width: 21cm;
     height: 29.7cm;
     margin: auto;
-    background-color:white;
+    background-color: white;
   }
   .bold {
     font-weight: 500;

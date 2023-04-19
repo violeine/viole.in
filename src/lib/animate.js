@@ -2,6 +2,7 @@ export function animate({ duration }, draw) {
   let frame;
   let elapsed = 0; //time start
   let lastTime = performance.now();
+
   (function loop() {
     frame = requestAnimationFrame(loop);
     const beginTime = performance.now();
