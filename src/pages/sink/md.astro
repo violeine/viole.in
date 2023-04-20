@@ -1,0 +1,10 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { render } from "@/lib/md";
+
+const t = await render(`# hello`);
+---
+
+<Layout>
+  <div set:html={t.code} />
+</Layout>

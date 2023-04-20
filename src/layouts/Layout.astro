@@ -2,21 +2,21 @@
 export interface Props {
   title?: string;
   icon?: string;
-  span?: string | number;
+  span?: ICell["span"];
   noScroll?: boolean;
+  debug?: boolean;
 }
 
-const { icon, span, noScroll } = Astro.props;
-import { listContent, toURL } from "@/lib/ash.js";
+const { icon, span, noScroll, debug } = Astro.props;
 
 import "@fontsource/lexend-deca/variable.css";
 import "@fontsource/jetbrains-mono/variable.css";
 
 import "@/styles/base.css";
 import Grid from "@/components/grid.astro";
-import Cell from "@/components/cell.astro";
+import Cell, { Props as ICell } from "@/components/cell.astro";
+import Nav from "@/components/nav.astro";
 
-const data = await listContent(Astro.url.pathname);
 const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
 ---
 
@@ -38,31 +38,10 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
       }</text></svg>`}
     />
   </head>
-  <body class:list={{ noScroll }}>
+  <body class:list={{ noScroll, "base-grid": debug }}>
     <Grid columns={8}>
       <Cell span="1-2">
-        <nav>
-          <h2 class="logo"><a href="/">(λ)</a></h2>
-          {
-            data.map((el) => (
-              <ul class="compact">
-                {el.map((a) => (
-                  <li>
-                    <a
-                      class:list={[
-                        { active: Astro.url.pathname.includes(`/${toURL(a)}`) },
-                        { active: Astro.url.pathname === `/${toURL(a)}` },
-                      ]}
-                      href={`/${toURL(a)}`}
-                    >
-                      {toURL(a).split("/").at(-1)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ))
-          }
-        </nav>
+        <Nav />
       </Cell>
       <Cell span={span ?? "3.."}>
         <slot />
@@ -74,22 +53,6 @@ const title = Astro.props.title ?? Astro.url.pathname.split("/").at(-2);
     .noScroll {
       display: flex;
       height: 100vh;
-    }
-    nav {
-      display: flex;
-      gap: var(--columnGap);
-    }
-
-    .active {
-      color: var(--bg);
-      font-weight: 400;
-    }
-
-    .logo {
-      & a,
-      a:hover {
-        text-decoration: none;
-      }
     }
   </style>
 </html>

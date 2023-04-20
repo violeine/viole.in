@@ -27,6 +27,7 @@
 	/* 1 pixel */
 	--displayScale: 1;
 	--pixel: 1px;
+	--unit: calc(var(--fontSize) / 2);
 
 	/* colors */
 	--bg: #199b8d;/*#005f5a;*/

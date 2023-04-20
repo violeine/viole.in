@@ -1,0 +1,45 @@
+---
+import { listContent, toURL } from "@/lib/ash.js";
+const data = await listContent(Astro.url.pathname);
+---
+
+<nav>
+	<h2 class="logo"><a href="/">(λ)</a></h2>
+	{
+		data.map((el) => (
+			<ul class="compact">
+				{el.map((a) => (
+					<li>
+						<a
+							class:list={[
+								{ active: Astro.url.pathname.includes(`/${toURL(a)}`) },
+								{ active: Astro.url.pathname === `/${toURL(a)}` },
+							]}
+							href={`/${toURL(a)}`}
+						>
+							{toURL(a).split("/").at(-1)}
+						</a>
+					</li>
+				))}
+			</ul>
+		))
+	}
+</nav>
+<style>
+	nav {
+		display: flex;
+		gap: 16px;
+	}
+
+	.active {
+		color: var(--bg);
+		font-weight: 400;
+	}
+
+	.logo {
+		& a,
+		a:hover {
+			text-decoration: none;
+		}
+	}
+</style>

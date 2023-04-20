@@ -1,5 +1,5 @@
 ---
-interface Props {
+export interface Props {
 	span?:
 		| number
 		| `${number}-${number}`
@@ -30,7 +30,7 @@ function parse(span: Props["span"]) {
 }
 ---
 
-<div class="cell" data-span={span}>
+<div class="cell" data-order={1} data-span={span}>
 	<slot />
 </div>
 

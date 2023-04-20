@@ -1,5 +1,6 @@
 ---
 import { datascriptQuery } from "@/lib/log";
+import M from "@/components/md.astro";
 
 const { id } = Astro.props;
 const pl = [
@@ -14,5 +15,5 @@ const content = v.flat(Infinity).map((e) => e.content);
 ---
 
 <ul>
-	{content.map((el) => <li>{el}</li>)}
+	{content.map((el) => <M content={el} as="li" />)}
 </ul>
