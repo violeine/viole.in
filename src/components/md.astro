@@ -4,12 +4,13 @@ import { render } from "@/lib/md";
 interface Props {
 	content: string;
 	as?: string;
+	inline?: boolean;
 }
 
-const { content } = Astro.props;
+const { content, inline } = Astro.props;
 const Tag = Astro.props.as ?? "div";
 
-const htmlString = await render(content);
+const htmlString = await render(content, inline);
 ---
 
 <Tag set:html={htmlString} />
