@@ -1,10 +1,14 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Md from "@/components/md.astro";
+import { q } from "@/lib/log";
 import { render } from "@/lib/md";
 
-const t = await render(`# hello`);
+const t = await render(`## render markdown from string`, true);
+const til = await q(["[[til]]"]).then((r) => r.map((e) => e.content));
 ---
 
 <Layout>
-  <div set:html={t.code} />
+  <div set:html={t} />
+  {til.map((e) => <Md content={e} />)}
 </Layout>

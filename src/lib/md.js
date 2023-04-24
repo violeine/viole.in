@@ -12,6 +12,7 @@ export const inline = str => {
   const hasP = str.indexOf('<p>') === 0 && str.indexOf('</p>') === str.length - 4;
   return hasP ? str.slice(3, -4) : str;
 }
+
 export const mdIntegration = () => {
   return {
     name: "v:md",

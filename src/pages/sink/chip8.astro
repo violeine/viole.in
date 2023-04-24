@@ -1,0 +1,11 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { dump } from "@/lib/chip8/rom";
+
+const { d } = await dump();
+---
+
+<Layout>
+  <h2>CHIP8 Emulator</h2>
+  <code>{d.join("\n")}</code>
+</Layout>
