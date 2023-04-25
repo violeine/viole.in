@@ -1,11 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { dump } from "@/lib/chip8/rom";
+import { load } from "@/lib/chip8/chip8";
+import { instructions } from "@/lib/chip8/instruction";
 
-const { d } = await dump();
+const { d, rom } = await dump();
+const r = instructions[2].parse(0x1111);
+const line = load(rom);
 ---
 
 <Layout>
   <h2>CHIP8 Emulator</h2>
   <code>{d.join("\n")}</code>
+  <hr />
+  <code>{line.join("\n")}</code>
 </Layout>
