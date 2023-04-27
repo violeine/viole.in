@@ -20,7 +20,7 @@ export default defineConfig({
     config: {
       applyBaseStyles: false
     }
-  }), mdx(), react(), svelte(), preact(), mdIntegration()]
+  }), mdx(), react(), svelte(), preact(), mdIntegration()],
   // output: "server",
   // adapter: vercel()
 });

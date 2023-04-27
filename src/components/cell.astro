@@ -34,12 +34,13 @@ function parse(span: Props["span"]) {
 	<slot />
 </div>
 
-<style define:vars={parse(span)}>
+<style is:global define:vars={parse(span)}>
 	.cell {
 		display: block;
 		appearance: none;
 		min-height: 0;
 		min-width: 0;
+		overflow: scroll;
 	}
 
 	.cell[data-span] {

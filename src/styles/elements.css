@@ -406,3 +406,6 @@ p + table {
   /*margin-bottom: calc(var(--lineHeight) * 1.5);*/
 }
 
+.block {
+  display:block;
+}

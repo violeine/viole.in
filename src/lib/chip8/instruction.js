@@ -52,6 +52,7 @@ export const instructions = [
       return {
         desc: `${op.toString(16).padStart(4, "0")}|SE V${x.toString(16)}, ${kk.toString(16).padStart(2, "0")}|Skip next inst if V${x.toString(16)}==${kk.toString(16).padStart(4, "0")}`
       }
+
     }
   },
   {
@@ -93,18 +94,21 @@ export const instructions = [
   {
     pattern: 0x7000,
     mask: 0xf000,
-    args: (op => [op & 0x0f00 >> 8, op & 0x00ff]),
-    parse: function(op) {
+    args: (op => [(op & 0x0f00) >> 8, op & 0x00ff]),
+    parse: function(op, CPU) {
       const [x, kk] = this.args(op);
       return {
-        desc: `${op.toString(16).padStart(4, "0")}|ADD V${x.toString(16)}, ${kk.toString(16).padStart(4, "0")}|V${x.toString(16)}=V${x}+${kk.toString(16).padStart(4, "0")}`
+        desc: `${op.toString(16).padStart(4, "0")}|ADD V${x.toString(16)}, ${kk.toString(16)}|V${x.toString(16)}=V${x}+${kk.toString(16)}`,
+        exec: ()=>{
+          CPU.V[x]+=kk;
+        }
       }
     }
   },
   {
     pattern: 0x8000,
     mask: 0xf00f,
-    args: (op => [op & 0x0f00 >> 8, op & 0x00f0 >> 4]),
+    args: (op => [(op & 0x0f00) >> 8, (op & 0x00f0) >> 4]),
     parse: function(op) {
       const [x, y] = this.args(op);
       return {
@@ -115,7 +119,7 @@ export const instructions = [
   {
     pattern: 0x8001,
     mask: 0xf00f,
-    args: (op => [op & 0x0f00 >> 8, op & 0x00f0 >> 4]),
+    args: (op => [(op & 0x0f00) >> 8, (op & 0x00f0) >> 4]),
     parse: function(op) {
       const [x, y] = this.args(op);
       return {
@@ -126,7 +130,7 @@ export const instructions = [
   {
     pattern: 0x8002,
     mask: 0xf00f,
-    args: (op => [op & 0x0f00 >> 8, op & 0x00f0 >> 4]),
+    args: (op => [(op & 0x0f00) >> 8, (op & 0x00f0) >> 4]),
     parse: function(op) {
       const [x, y] = this.args(op);
       return {
@@ -137,7 +141,7 @@ export const instructions = [
   {
     pattern: 0x8003,
     mask: 0xf00f,
-    args: (op => [op & 0x0f00 >> 8, op & 0x00f0 >> 4]),
+    args: (op => [(op & 0x0f00) >> 8, (op & 0x00f0) >> 4]),
     parse: function(op) {
       const [x, y] = this.args(op);
       return {
@@ -148,7 +152,7 @@ export const instructions = [
   {
     pattern: 0x8004,
     mask: 0xf00f,
-    args: (op => [op & 0x0f00 >> 8, op & 0x00f0 >> 4]),
+    args: (op => [(op & 0x0f00) >> 8, (op & 0x00f0) >> 4]),
     parse: function(op) {
       const [x, y] = this.args(op);
       return {
@@ -159,7 +163,7 @@ export const instructions = [
   {
     pattern: 0x8005,
     mask: 0xf00f,
-    args: (op => [op & 0x0f00 >> 8, op & 0x00f0 >> 4]),
+    args: (op => [(op & 0x0f00) >> 8, (op & 0x00f0) >> 4]),
     parse: function(op) {
       const [x, y] = this.args(op);
       return {

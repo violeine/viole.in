@@ -29,5 +29,3 @@ export const termRender = (display) => {
       }
   console.log(line);
 };
-
-

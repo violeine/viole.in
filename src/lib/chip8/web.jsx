@@ -1,15 +1,18 @@
 import {signal} from '@preact/signals';
 
-const displaySignal = signal(new Array(64*32));
+const displaySignal = signal([]);
 
 export const web =(display) => {
-	displaySignal.value=display;
+  console.log(display);
+  displaySignal.value=[...display];
+  console.log(displaySignal);
+  console.log("hello");
 }
 
 export const Display = () => {
   const w=8; 
   const h=8;
-  return <div style={{
+  return (<div style={{
     width: `${w*64}px`,
     height: `${h*32}px`,
 		margin: 0,
@@ -24,6 +27,6 @@ export const Display = () => {
 			display:"inline-block",
 			padding: 0
 		}} key={i}/>)}
-  </div>
+  </div>)
 }
 

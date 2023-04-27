@@ -8,6 +8,7 @@ import { repl_env } from './env.js';
 export const lisp_env = signal({
   print: [],
 })
+
 function PRINT(mal) {
   lisp_env.value = {
     print: [...lisp_env.value.print, String(pr_str(mal))]
