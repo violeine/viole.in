@@ -1,12 +1,13 @@
-export const ins = {
-
-}
 export const instructions = [
   {
     pattern: 0x00e0,
     mask: 0xffff,
-    parse: (op) => ({
-      desc: `CLS`,
+    parse: (op, CPU) => ({
+      desc: `${op.toString(16).padStart(4, "0")}|CLS`,
+      exec: ()=> {
+        CPU.framebuffer.clear();
+        CPU.framebuffer.draw();
+      }
     })
   },
   {
@@ -20,10 +21,14 @@ export const instructions = [
     pattern: 0x1000,
     mask: 0xf000,
     args: (op) => [op & 0x0fff],
-    parse: function(op) {
+    parse: function(op, CPU) {
       const [nnn] = this.args(op);
       return {
-        desc: `${op.toString(16).padStart(4, "0")}|JP ${nnn.toString(16).padStart(3, "0")}|Jump to ${nnn.toString(16).padStart(3, "0")}`
+        desc: `${op.toString(16).padStart(4, "0")}|JP ${nnn.toString(16).padStart(3, "0")}|Jump to ${nnn.toString(16).padStart(3, "0")}`,
+        exec: ()=>{
+            if ((CPU.PC - 2) === nnn) CPU.run = false;
+            CPU.PC = nnn;
+        }
       }
     }
   },
@@ -75,10 +80,13 @@ export const instructions = [
     pattern: 0x6000,
     mask: 0xf000,
     args: (op => [(op & 0x0f00) >> 8, op & 0x00ff]),
-    parse: function(op) {
+    parse: function(op, CPU) {
       const [x, kk] = this.args(op);
       return {
-        desc: `${op.toString(16).padStart(4, "0")}|LD V${x.toString(16)}, ${kk.toString(16).padStart(2, "0")}|V${x.toString(16)}=${kk.toString(16).padStart(2, "0")}`
+        desc: `${op.toString(16).padStart(4, "0")}|LD V${x.toString(16)}, ${kk.toString(16).padStart(2, "0")}|V${x.toString(16)}=${kk.toString(16).padStart(2, "0")}`,
+        exec: ()=>{
+            CPU.V[x]=kk;
+        }
       }
     }
   },
@@ -207,10 +215,13 @@ export const instructions = [
     pattern: 0xA000,
     mask: 0xf000,
     args: (op => [op & 0x0fff]),
-    parse: function(op) {
+    parse: function(op, CPU) {
       const [nnn] = this.args(op);
       return {
-        desc: `${op.toString(16).padStart(4, "0")}|LD I, ${nnn.toString(16).padStart(3, "0")}|I = ${nnn.toString(16).padStart(3, "0")}`
+        desc: `${op.toString(16).padStart(4, "0")}|LD I, ${nnn.toString(16).padStart(3, "0")}|I = ${nnn.toString(16).padStart(3, "0")}`,
+        exec: ()=> {
+          CPU.I = nnn;
+        }
       }
     }
   },
@@ -240,10 +251,25 @@ export const instructions = [
     pattern: 0xD000,
     mask: 0xf000,
     args: (op => [(op & 0x0f00) >> 8, (op & 0x00f0) >> 4, op & 0x000f]),
-    parse: function(op) {
+    parse: function(op, CPU) {
       const [x, y, n] = this.args(op);
       return {
-        desc: `${op.toString(16).padStart(4, "0")}|DRW V${x.toString(16)}, V${y.toString(16)}, ${n.toString(16)}|Display ${n} byte starting at I at (V${x}, V${y})`
+        desc: `${op.toString(16).padStart(4, "0")}|DRW V${x.toString(16)}, V${y.toString(16)}, ${n.toString(16)}|Display ${n} byte starting at I at (V${x}, V${y})`,
+        exec: ()=>{
+          const offset = CPU.I; 
+          CPU.V[0xf]=0;
+          for (let t=0; t<n; t++) {
+              const line = CPU.memory[t+offset];
+              for (let pos = 0; pos < 8; pos++) {
+                const val = line & (1 << (7 - pos)) ? 1 : 0
+                const u = (CPU.V[x] + pos) % 64;
+                const v = (CPU.V[y] + t) % 32;
+                const collision = CPU.framebuffer.toggle(u, v, val);
+                if (collision === 0) CPU.V[0xf]=1;
+            }
+          };
+          CPU.framebuffer.draw();
+        }
       }
     }
   },

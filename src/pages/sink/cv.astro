@@ -10,13 +10,13 @@ import "@/styles/base.css";
 
 const pl = (t) => [
   ` [:find (pull ?b [*])
-    :where  [?b :block/parent ?parent]
-    [?parent :block/properties ?prop]
-    [(get ?prop :cv) ?v]
-    [(= ?v "${t}")]
-    [?parent :block/page ?page]
-    [?page :block/name "cv"]
-    ]
+		:where	[?b :block/parent ?parent]
+		[?parent :block/properties ?prop]
+		[(get ?prop :cv) ?v]
+		[(= ?v "${t}")]
+		[?parent :block/page ?page]
+		[?page :block/name "cv"]
+		]
 `,
 ];
 
@@ -116,10 +116,8 @@ const [[info], experience, project, education] = await Promise.all([
       {
         project.map((c) => (
           <Cell span="row">
-            <a class="bold" href={`https://${c.link}`}>
-              {c.project}
-            </a>
-            : <M content={c.details} inline as="span" />
+            <a class="bold" href={`https://${c.link}`}>{c.project}</a
+            >: <M content={c.details} inline as="span" />
           </Cell>
         ))
       }

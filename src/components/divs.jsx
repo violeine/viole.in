@@ -7,7 +7,7 @@ export const Cards = () => {
   const length = 72;
   const [play, setPlay] = useState(false);
   return (
-    <div className="border border-slate-900 mx-auto">
+    <div className="mx-auto">
       <button
         className="bg-green-200 px-5 py-2 rounded absolute left-[50%] bottom-5 -translate-x-1/2"
         onClick={() => setPlay(!play)}
