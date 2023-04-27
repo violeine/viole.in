@@ -31,29 +31,33 @@ export const State = ()=> {
       {debug.value.cycle}
     </div>
     <div class="cell" data-span="2" style="--grid-col-end:2">
-        PC: {formatHex(debug.value.PC, 3)}
+        PC: <br/> 
+      {formatHex(debug.value.PC, 3)}
     </div>
     <div class="cell" data-span="2" style="--grid-col-end:2">
-      I: {formatHex(debug.value.I, 3)}
+      I: <br/>
+      {formatHex(debug.value.I, 3)}
     </div>
     <div class="cell" data-span="2" style="--grid-col-end:2">
-        DT: {debug.value.DT}
+        DT: <br/>
+      {debug.value.DT}
     </div>
     <div class="cell" data-span="2" style="--grid-col-end:2">
-        ST: {debug.value.DT}
+        ST: <br/>
+      {debug.value.DT}
     </div>
     <div class="cell" data-span="row">
         Registers:
     </div>
     {Array.from(debug.value.V.values()).map((e,i)=> (<div class="cell" key={i}>
       V{i.toString(16)} <br/>
-      {formatHex(e, 2)}
+      <span style={{fontSize:"12px"}}>{formatHex(e, 2)}</span>
     </div> ))}
   </div>
 } 
 
 export const Instruction =()=> {
-  return <code >
+  return <code style={{whiteSpace:"pre"}}>
   {Array.from(debug.value.instructions.values()).map(e=>e.desc).join("\n")}
 </code>
 }

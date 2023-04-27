@@ -12,14 +12,14 @@ import {Display} from '@/lib/chip8/web.jsx'
         <State client:load/>
       </Cell>
       <Cell span="3-6">
-      <Grid columns={8}>
-        <Cell span={2}>
+      <Grid columns={8} gap={4}>
+        <Cell >
           <Loader client:load /> 
           <Run client:load />
           <Step client:load/>
           <Pause client:load />
         </Cell>
-        <Cell span="3..">
+        <Cell span="2..">
           <Display client:load/>
         </Cell>
       </Grid>
