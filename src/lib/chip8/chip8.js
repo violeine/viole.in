@@ -32,7 +32,7 @@ export const chip8 = (debug, web) => {
 
   const load = (rom) => {
     const offset = 0x200;
-    for (let i = 0; i < rom.length - 1; i += 2) {
+    for (let i = 0; i < rom.length; i += 2) {
       const op = rom[i] << 8 | rom[i + 1];
       const ins = instructions.find(({ pattern, mask }) => {
         return pattern === (op & mask);
@@ -62,7 +62,6 @@ export const chip8 = (debug, web) => {
   const step = () => {
       execute(fetch());
       if (debug) debug.value= {...CPU };
-      console.log(CPU);
   }
 
   const run = () => {

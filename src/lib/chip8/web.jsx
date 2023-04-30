@@ -3,10 +3,7 @@ import {signal} from '@preact/signals';
 const displaySignal = signal([]);
 
 export const web =(display) => {
-  console.log(display);
   displaySignal.value=[...display];
-  console.log(displaySignal);
-  console.log("hello");
 }
 
 export const Display = () => {

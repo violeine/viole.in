@@ -23,6 +23,12 @@ function parse(span: Props["span"]) {
 		return {
 			"grid-col-start": start,
 		};
+	if (span.includes("+")) {
+		return {
+		"grid-col-start": start,
+		"grid-col-end": Number(end),
+		};
+	}
 	return {
 		"grid-col-start": start,
 		"grid-col-end": Number(end) + 1,

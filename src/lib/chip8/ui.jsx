@@ -21,9 +21,6 @@ export const Pause = ()=> <button class="monospace block" onClick={()=>{
 
 export const State = ()=> {
   return <div class="grid monospace" style="--columns:8; --gap:8px">
-    <div class="cell" data-span="row">
-      <p>CPU State</p>
-    </div>
     <div class="cell" data-span="1-4" style="--grid-col-start: 1; --grid-col-end:4">
         Cycle: 
     </div>
@@ -47,18 +44,48 @@ export const State = ()=> {
       {debug.value.DT}
     </div>
     <div class="cell" data-span="row">
+      {debug.value.run ? "Running": "Stopped"}
+    </div>
+    <div class="cell" data-span="row">
         Registers:
     </div>
     {Array.from(debug.value.V.values()).map((e,i)=> (<div class="cell" key={i}>
       V{i.toString(16)} <br/>
       <span style={{fontSize:"12px"}}>{formatHex(e, 2)}</span>
     </div> ))}
+    <div class="cell" data-span="4" style="--grid-col-end:4" >
+        Stack:
+    </div>
+    <div class="cell" data-span="2" style="--grid-col-end:2" >
+        SP:
+    </div>
+    <div class="cell" data-span="2" style="--grid-col-end:2" >
+        {debug.value.SP}
+    </div>
+    {Array.from(debug.value.stack.values()).map((e,i)=> (<div class="cell" data-span="4" style="--grid-col-end:4" key={i}>
+      Depth {i}: <span>{formatHex(e, 3)}</span>
+    </div> ))}
   </div>
 } 
 
 export const Instruction =()=> {
-  return <code style={{whiteSpace:"pre"}}>
-  {Array.from(debug.value.instructions.values()).map(e=>e.desc).join("\n")}
+  return <code>
+  {Array.from(debug.value.instructions.values()).map((e,i)=> {
+      if (debug.value.PC === (0x200+(i*2))) {
+          return <span 
+          key={i}
+          style={{
+          whiteSpace:"pre",
+          background: "var(--bg)",
+          color: "var(--app)"
+        }}>{formatHex(0x200+(i*2), 3)}|{e.desc}</span>
+      } 
+      return <span 
+        key={i}
+        style={{
+          whiteSpace:"pre",
+          background: "var(--app)",}}>{formatHex(0x200+(i*2), 3)}|{e.desc}</span>
+    })}
 </code>
 }
 const fetch = async ()=>{
@@ -69,3 +96,11 @@ const fetch = async ()=>{
 export const Loader = ()=> (<button onClick={fetch} class="monospace">
     Load 
 </button>)
+
+const pad =[1,2,3, "a", 4,5,6,"b", 7,8,9, "c", "e", 0, "f", "d"];
+
+export const Pad=()=> {
+    return pad.map(e=><div class="cell" style={{aspectRatio:"1/1", border: "solid", display:"flex", justifyContent:"center", alignItems:"center", cursor:'pointer' }}>
+      <span style={{display:"inline-block"}}>{e}</span>
+    </div>)
+}
