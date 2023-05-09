@@ -21,13 +21,12 @@ export const chip8 = (debug, web) => {
 		I: 0, //adress register
 		PC: 0x200, // program counter, store current address, start at 0x200
 		stack: new Uint16Array(16), // only store address, which is from `0x000-0xfff`
-		SP: -1,
-		instructions: new Map(),
+		SP: 0,
 		framebuffer: framebuffer(web),
 		run: false,
 		cycle:0,
 		DT: 0,
-		ST:0,
+		ST: 0,
 		frametime: 1000/60, // hz
 		stepPerCycle: 20,
 		keypad: keys(),
@@ -37,12 +36,7 @@ export const chip8 = (debug, web) => {
 
 	const load = (rom) => {
 		const offset = 0x200;
-		for (let i = 0; i < rom.length; i++) {
-			const op = (rom[i] << 8) | rom[i + 1];
-			const ins = instructions.find(({ pattern, mask }) => {
-				return pattern === (op & mask);
-			});
-			CPU.instructions.set(offset+i, ins ? { op, ...ins.parse(op, CPU)} : { op, desc: `${op}|???` });
+		for (let i = 0; i < rom.length; i+=2) {
 			CPU.memory[offset+i] = rom[i];
 			CPU.memory[offset+i+1]=rom[i+1];
 		}
@@ -51,15 +45,16 @@ export const chip8 = (debug, web) => {
 
 	const fetch = () => {
 		if (CPU.PC > 0xfff) CPU.run = false;
-		const ins = CPU.instructions.get(CPU.PC);
-		if (!ins) CPU.run = false;
+		const op = (CPU.memory[CPU.PC]<<8) | CPU.memory[CPU.PC+1];
+		const ins = instructions.find(({ pattern, mask }) => {
+			return pattern === (op & mask);
+		});
 		CPU.PC+=2;
-		return ins;
+		return ins.parse(op, CPU);
 	};
 
 	const execute = (ins) => {
 		if (ins?.exec !== undefined) {
-			console.log(ins.desc);
 			ins.exec();
 		}
 	};

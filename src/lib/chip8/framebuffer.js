@@ -5,7 +5,7 @@ export const framebuffer = (render) => {
 	const display = new Array(WIDTH*HEIGHT).fill(0); // 64x32 pixel display;
 	return {
 		toggle : (x, y, n) => {
-			const loc = y*WIDTH+x;
+			const loc = (y*WIDTH +x) % (WIDTH*HEIGHT);
 			display[loc] = display[loc] ^ n;
 			return display[loc];
 		}, 

@@ -69,26 +69,6 @@ export const State = ()=> {
 	</div>;
 }; 
 
-export const Instruction =()=> {
-	return <code>
-		{Array.from(debug.value.instructions.values()).map((e,i)=> {
-			if (debug.value.PC === (0x200+(i*2))) {
-				return <span 
-					key={i}
-					style={{
-						whiteSpace:"pre",
-						background: "var(--bg)",
-						color: "var(--app)"
-					}}>{formatHex(0x200+(i*2), 3)}|{e.desc}{"\n"}</span>;
-			} 
-			return <span 
-				key={i}
-				style={{
-					whiteSpace:"pre",
-					background: "var(--app)"}}>{formatHex(0x200+(i*2), 3)}|{e.desc}{"\n"}</span>;
-		})}
-	</code>;
-};
 const fetch = async ()=>{
 	const t = await fetchRom();
 	c8.load(new Uint8Array(t));

@@ -16,9 +16,7 @@ export const instructions = [
 		parse: (op, CPU) => ({
 			desc: "RET",
 			exec: ()=>{
-				CPU.PC = CPU.stack[CPU.SP];
-				CPU.stack[CPU.SP] = 0;
-				CPU.SP -= 1;
+				CPU.PC = CPU.stack[--CPU.SP];
 			}
 		})
 	},
@@ -46,9 +44,8 @@ export const instructions = [
 			return {
 				desc: `${op.toString(16).padStart(4, "0")}|CALL ${nnn.toString(16)}|Call fn at ${nnn.toString(16).padStart(4, "0")}`,
 				exec: () => {
-					CPU.SP+=1;
-					CPU.stack[CPU.SP]=CPU.PC;
-					CPU.PC = nnn;
+					CPU.stack[CPU.SP++]=CPU.PC;
+					CPU.PC=nnn;
 				}
 			};
 		}
@@ -484,7 +481,6 @@ export const instructions = [
 					for (let i=0; i<=x; i++) {
 						CPU.memory[offset+i]=CPU.V[i];
 					}
-					CPU.I=CPU.I+x;
 				}
 			};
 		}
@@ -502,7 +498,6 @@ export const instructions = [
 					for (let i=0; i<=x; i++) {
 						CPU.V[i]=CPU.memory[offset+i];
 					}
-					CPU.I=CPU.I+x;
 				}
 			};
 		}
