@@ -6,13 +6,14 @@ export function keys() {
 		0xa: "z", 0x0: "x", 0xb: "c", 0xf: "v"
 	};
 
-	const lookupKeymaps = Object.fromEntries(Object.entries(keymaps).map(([k,v])=>([v, k])));
+	const lookupKeymaps = Object.fromEntries(Object.entries(keymaps).map(([k,v])=>([v, Number(k)])));
 
 	let keyPress = null;
 
 	const getKey= () => {
 		return lookupKeymaps[keyPress] ?? null;
 	};
+
 	const setKey= (keys) => {
 		keyPress = keys;
 	};

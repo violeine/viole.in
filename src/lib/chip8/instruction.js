@@ -18,7 +18,7 @@ export const instructions = [
 			exec: ()=>{
 				CPU.PC = CPU.stack[CPU.SP];
 				CPU.stack[CPU.SP] = 0;
-				CPU.SP-=1;
+				CPU.SP -= 1;
 			}
 		})
 	},
@@ -75,7 +75,7 @@ export const instructions = [
 		parse: function(op, CPU) {
 			const [x, kk] = this.args(op);
 			return {
-				desc: `${op.toString(16).padStart(4, "0")}|SNE V${x.toString(16)} ${kk.toString(16).padStart(2, "0")}|Skip next inst if V${x.toString(16)}!=${kk.toString(16).padStart(4, "0")}`,
+				desc: `${op.toString(16).padStart(4, "0")}|SNE V${x.toString(16)} ${kk.toString(16).padStart(2, "0")}|Skip next inst if V${x.toString(16)}!=${kk.toString(16).padStart(2, "0")}`,
 				exec: () => {
 					if (CPU.V[x]!==kk) CPU.PC+=2;
 				}
@@ -366,10 +366,8 @@ export const instructions = [
 				exec: () => {
 					const key = CPU.keypad.getKey();
 					if (key !== null) return;
-					if (key !== CPU.V[x]) {
-						CPU.PC+=2;
-					}
-				}
+					if (key !== CPU.V[x]) CPU.PC+=2;
+				},
 			};
 		}
 	},
@@ -469,7 +467,6 @@ export const instructions = [
 					CPU.memory[I]=Number(a);
 					CPU.memory[I+1]=Number(b);
 					CPU.memory[I+2]=Number(c);
-					CPU.I+=2;
 				}
 			};
 		}
@@ -487,7 +484,7 @@ export const instructions = [
 					for (let i=0; i<=x; i++) {
 						CPU.memory[offset+i]=CPU.V[i];
 					}
-					CPU.I+=x;
+					CPU.I=CPU.I+x;
 				}
 			};
 		}
@@ -505,7 +502,7 @@ export const instructions = [
 					for (let i=0; i<=x; i++) {
 						CPU.V[i]=CPU.memory[offset+i];
 					}
-					CPU.I+=x;
+					CPU.I=CPU.I+x;
 				}
 			};
 		}

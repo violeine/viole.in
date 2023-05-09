@@ -10,19 +10,18 @@ import "@/styles/base.css";
 
 const pl = (t) => [
 	` [:find (pull ?b [*])
-:where	[?b :block/parent ?parent]
-[?parent :block/properties ?prop]
-[(get ?prop :cv) ?v]
-[(= ?v "${t}")]
-[?parent :block/page ?page]
-[?page :block/name "cv"]
-]
+			:where	[?b :block/parent ?parent]
+							[?parent :block/properties ?prop]
+							[(get ?prop :cv) ?v]
+							[(= ?v "${t}")]
+							[?parent :block/page ?page]
+							[?page :block/name "cv"]]
 `,
 ];
 
 const t = async (x) => {
-	const v = await datascriptQuery(pl(x));
-	return v.flat(Infinity).map((e) => ({ id: e.id, ...e.properties }));
+const v = await datascriptQuery(pl(x));
+return v.flat(Infinity).map((e) => ({ id: e.id, ...e.properties }));
 };
 
 const [[info], experience, project, education] = await Promise.all([

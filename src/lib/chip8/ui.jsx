@@ -42,7 +42,7 @@ export const State = ()=> {
 		</div>
 		<div class="cell" data-span="2" style="--grid-col-end:2">
         ST: <br/>
-			{debug.value.DT}
+			{debug.value.ST}
 		</div>
 		<div class="cell" data-span="row">
 			{debug.value.run ? "Running": "Stopped"}

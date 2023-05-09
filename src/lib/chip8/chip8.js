@@ -37,16 +37,16 @@ export const chip8 = (debug, web) => {
 
 	const load = (rom) => {
 		const offset = 0x200;
-		for (let i = 0; i < rom.length; i += 2) {
-			const op = rom[i] << 8 | rom[i + 1];
+		for (let i = 0; i < rom.length; i++) {
+			const op = (rom[i] << 8) | rom[i + 1];
 			const ins = instructions.find(({ pattern, mask }) => {
 				return pattern === (op & mask);
 			});
 			CPU.instructions.set(offset+i, ins ? { op, ...ins.parse(op, CPU)} : { op, desc: `${op}|???` });
 			CPU.memory[offset+i] = rom[i];
 			CPU.memory[offset+i+1]=rom[i+1];
-			if (debug) debug.value={...CPU};
 		}
+		if (debug) debug.value={...CPU};
 	};
 
 	const fetch = () => {
@@ -59,6 +59,7 @@ export const chip8 = (debug, web) => {
 
 	const execute = (ins) => {
 		if (ins?.exec !== undefined) {
+			console.log(ins.desc);
 			ins.exec();
 		}
 	};
