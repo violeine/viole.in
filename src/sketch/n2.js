@@ -26,7 +26,7 @@ const points = createGrid();
 export const dimensions = {
 	width: 512,
 	height: 512,
-}
+};
 
 
 export function draw(ctx) {
@@ -37,7 +37,7 @@ export function draw(ctx) {
 		const x = lerp(margin, 512 - margin, u);
 		const y = lerp(margin, 512 - margin, v);
 		ctx.save();
-		ctx.strokeStyle = "white"
+		ctx.strokeStyle = "white";
 		ctx.beginPath();
 		ctx.arc(x, y, rad * 20, 0, 2 * Math.PI);
 		ctx.stroke();

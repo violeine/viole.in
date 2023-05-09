@@ -1,4 +1,4 @@
-import { z, defineCollection } from 'astro:content';
+import { z, defineCollection } from "astro:content";
 
 const aboutCollection = defineCollection({
 	schema: z.object({
@@ -8,5 +8,5 @@ const aboutCollection = defineCollection({
 });
 
 export const collections = {
-	'about': aboutCollection
-}
+	"about": aboutCollection
+};

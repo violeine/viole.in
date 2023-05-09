@@ -1,8 +1,8 @@
-import { pick } from '@/lib/ron'
+import { pick } from "@/lib/ron";
 export const dimensions = {
 	width: 512,
 	height: 512,
-}
+};
 const rectArray = (num, length) => {
 	const points = [];
 	for (let x = 0; x < num * length; x += length) {
@@ -11,10 +11,10 @@ const rectArray = (num, length) => {
 		}
 	}
 	return points;
-}
+};
 
 const rect = rectArray(10, 50);
-const r = [Math.PI * 0.5, Math.PI, Math.PI * 1.5, Math.PI * 2,]
+const r = [Math.PI * 0.5, Math.PI, Math.PI * 1.5, Math.PI * 2,];
 
 function drawArc([x, y, l1, l2]) {
 	return (ctx) => {
@@ -32,7 +32,7 @@ function drawArc([x, y, l1, l2]) {
 		ctx.stroke();
 		// ctx.lineTo(-l1 / 2, -l1 / 2);
 		ctx.restore();
-	}
+	};
 }
 
 // count per row: round (width - margin)/length

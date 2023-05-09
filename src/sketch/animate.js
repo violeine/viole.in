@@ -1,4 +1,4 @@
-import { lerp } from '@/lib/mae';
+import { lerp } from "@/lib/mae";
 
 export const dimensions = {
 	width: 512,
@@ -6,7 +6,7 @@ export const dimensions = {
 	animate: {
 		duration: 3000,
 	},
-}
+};
 
 export function draw(ctx, { playhead }) {
 	// console.log(playhead);

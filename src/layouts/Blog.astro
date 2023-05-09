@@ -2,20 +2,20 @@
 import Layout from "@/layouts/Layout.astro";
 
 interface Props {
-  title: string;
+	title: string;
 }
 
 const { frontmatter } = Astro.props;
 ---
 
 <Layout icon="🖨" title={frontmatter.title} span="3-6">
-  <article>
-    <slot />
-  </article>
+	<article>
+		<slot />
+	</article>
 </Layout>
 
 <style is:global>
-  .prose > pre > code {
-    background-color: transparent !important;
-  }
+.prose > pre > code {
+		background-color: transparent !important;
+	}
 </style>

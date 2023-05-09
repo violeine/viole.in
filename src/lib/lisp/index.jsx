@@ -1,5 +1,5 @@
-import { signal } from '@preact/signals';
-import { lisp_env, rep_multistring } from './weeb.js';
+import { signal } from "@preact/signals";
+import { lisp_env, rep_multistring } from "./weeb.js";
 
 const editor = signal(`;lisp
 (def! fib (fn* [n]
@@ -22,13 +22,13 @@ export function Editor() {
 				<button class="monospace" onClick={() => rep_multistring(editor.value)}>eval</button>
 			</div>
 		</>
-	)
+	);
 }
 export function REPL() {
 	return (<div class="repl">{
 		lisp_env.value.print.map(el => <pre>{el}</pre>)
 	}
-		<div class="anchor" />
-	</div>)
+	<div class="anchor" />
+	</div>);
 }
 

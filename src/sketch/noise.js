@@ -4,7 +4,7 @@ import { noise2D } from "@/lib/ron.js";
 export const dimensions = {
 	width: 512,
 	height: 512,
-}
+};
 
 function createGrid() {
 	const points = [];

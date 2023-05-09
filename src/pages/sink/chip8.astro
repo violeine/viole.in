@@ -22,10 +22,9 @@ import {Display} from '@/lib/chip8/web.jsx'
         <Cell span="2..">
           <Display client:load/>
         </Cell>
-        <hr/>
         <Cell span={"3+4"}>
           <Grid columns={4} gap={8}>
-            <Pad/>
+            <Pad client:load/>
           </Grid>
         </Cell>
       </Grid>
