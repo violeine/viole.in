@@ -32,8 +32,8 @@
 //     rom: Buffer.concat(rom),
 //   })
 // }
-const roms=["1-chip8-logo.ch8", "2-ibm-logo.ch8", "3-corax+.ch8", "4-flags.ch8", "5-quirks.ch8", "6-keypad.ch8", "Trip8 Demo (2008).ch8"];
-export async function fetchRom() {
-	const t = await fetch(`/${roms[5]}`).then(r=>r.arrayBuffer());
+export const roms=["1-chip8-logo.ch8", "2-ibm-logo.ch8", "3-corax+.ch8", "4-flags.ch8", "5-quirks.ch8", "6-keypad.ch8", "Trip8 Demo (2008).ch8"];
+export async function fetchRom(r) {
+	const t = await fetch(`/${r}`).then(r=>r.arrayBuffer());
 	return t;
 }

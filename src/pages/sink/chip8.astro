@@ -1,35 +1,47 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Grid from '@/components/grid.astro';
-import Cell from '@/components/cell.astro'
-import {Pad, Run, Step, Pause, State, Loader, Instruction} from '@/lib/chip8/ui.jsx';
-import {Display} from '@/lib/chip8/web.jsx'
+import Grid from "@/components/grid.astro";
+import Cell from "@/components/cell.astro";
+import {
+  Pad,
+  Run,
+  Step,
+  Pause,
+  State,
+  Loader,
+  RomSelection,
+} from "@/lib/chip8/ui.jsx";
+import { Display } from "@/lib/chip8/web.jsx";
+import Manual from "@/lib/chip8/manual.md";
 ---
+
 <Base noScroll>
   <Grid columns={8} gap={8}>
-      <Cell span="1-2">
+    <Cell span="1-2">
       <h2>Chip8 Emulator</h2>
-        <State client:load/>
-      </Cell>
-      <Cell span="3-6">
+      <State client:load />
+    </Cell>
+    <Cell span="3-6">
       <Grid columns={8} gap={8}>
-        <Cell >
-          <Loader client:load /> 
-          <Run client:load />
-          <Step client:load/>
-          <Pause client:load />
+        <Run client:load />
+        <Step client:load />
+        <Pause client:load />
+        <Cell span="4+3">
+          <RomSelection client:load />
+          <Loader client:load />
         </Cell>
         <Cell span="2..">
-          <Display client:load/>
+          <Display client:load />
         </Cell>
         <Cell span={"3+4"}>
           <Grid columns={4} gap={8}>
-            <Pad client:load/>
+            <Pad client:load />
           </Grid>
         </Cell>
       </Grid>
-      </Cell>
-      <Cell span="7-8">
+    </Cell>
+    <Cell span="7-8">
+      <Manual />
     </Cell>
   </Grid>
 </Base>

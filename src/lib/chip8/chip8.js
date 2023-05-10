@@ -33,8 +33,20 @@ export const chip8 = (debug, web) => {
 	};
 
 	if (debug) debug.value={...CPU};
-
+	const reset = () => {
+		CPU.run = false;
+		CPU.V = new Uint8Array(16);
+		CPU.PC = 0x200;
+		CPU.I = 0;
+		CPU.stack= new Uint16Array(16);
+		CPU.SP = 0;
+		CPU.DT = 0;
+		CPU.ST = 0;
+		CPU.framebuffer = framebuffer(web);
+		CPU.cycle = 0;
+	};
 	const load = (rom) => {
+		reset();
 		const offset = 0x200;
 		for (let i = 0; i < rom.length; i+=2) {
 			CPU.memory[offset+i] = rom[i];
@@ -58,8 +70,10 @@ export const chip8 = (debug, web) => {
 			ins.exec();
 		}
 	};
+	
 
 	const step = () => {
+		CPU.cycle++;
 		execute(fetch());
 		if (debug) debug.value= {...CPU };
 	};

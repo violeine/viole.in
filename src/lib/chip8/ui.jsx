@@ -1,10 +1,11 @@
 import {signal} from "@preact/signals";
 import { useEffect } from "preact/hooks";
 import {chip8} from "./chip8.js";
-import { fetchRom } from "./rom.js";
+import { fetchRom, roms } from "./rom.js";
 import {web} from "./web";
 
 const debug = signal();
+const currentRom = signal(roms[6]);
 const c8 = chip8(debug, web);
 export const formatHex = (s, pad=1) => `0x${s.toString(16).padStart(pad, "0")}`;
 
@@ -69,14 +70,19 @@ export const State = ()=> {
 	</div>;
 }; 
 
-const fetch = async ()=>{
-	const t = await fetchRom();
+const fetch = async (r)=>{
+	const t = await fetchRom(r);
 	c8.load(new Uint8Array(t));
 };
 
-export const Loader = ()=> (<button onClick={fetch} class="monospace">
-    Load 
-</button>);
+export const Loader = ()=> {
+	useEffect(()=>{
+		fetch(currentRom.value);
+	}, []);	
+	return(
+		<button onClick={()=>fetch(currentRom.value)} class="monospace">
+			Load 
+		</button>);};
 
 export const Pad = () => {
 	const keyDownListener = (event)=>{
@@ -90,4 +96,10 @@ export const Pad = () => {
 		window.addEventListener("keyup", keyUpListener);
 	}, []);
 	return <div></div>;
+};
+
+export const RomSelection = ()=> {
+	return <select style={{all: "revert"}} value={currentRom} onChange={(e)=>currentRom.value=e.target.value} >
+		{roms.map(el => (<option value={el}>{el}</option>))}
+	</select>; 
 };
