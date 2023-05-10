@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Json from "@/components/Json.astro";
+import { Marks } from "@/lib/marks.jsx";
+import { q } from "@/lib/log";
+
+const marks = await q([
+  "(and (property :marks) (not (property :template)))",
+]).then((r) => r.map((e) => e.properties));
+---
+
+<Layout>
+  <h2>Marks</h2>
+  <p>
+    Smol <a href="https://twitter.com/raunofreiberg/status/1653471349854093327"
+      >bookmark</a
+    > site powered by logseq.
+  </p>
+  <hr />
+  <Marks marks={marks} />
+  <hr />
+  <p>
+    <a href={`${Astro.url.origin}/about/marks`}>Built with logseq queries.</a>
+  </p>
+</Layout>
