@@ -49,7 +49,7 @@ export const chip8 = (debug, web) => {
 		reset();
 		const offset = 0x200;
 		for (let i = 0; i < rom.length; i+=2) {
-			CPU.memory[offset+i] = rom[i];
+			CPU.memory[offset+i] = rom[i]
 			CPU.memory[offset+i+1]=rom[i+1];
 		}
 		if (debug) debug.value={...CPU};

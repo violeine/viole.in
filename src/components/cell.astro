@@ -25,8 +25,8 @@ function parse(span: Props["span"]) {
 		};
 	if (span.includes("+")) {
 		return {
-		"grid-col-start": start,
-		"grid-col-end": Number(end),
+			"grid-col-start": start,
+			"grid-col-end": Number(end),
 		};
 	}
 	return {
@@ -46,7 +46,6 @@ function parse(span: Props["span"]) {
 		appearance: none;
 		min-height: 0;
 		min-width: 0;
-		overflow: scroll;
 	}
 
 	.cell[data-span] {

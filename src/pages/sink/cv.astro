@@ -20,8 +20,8 @@ const pl = (t) => [
 ];
 
 const t = async (x) => {
-const v = await datascriptQuery(pl(x));
-return v.flat(Infinity).map((e) => ({ id: e.id, ...e.properties }));
+	const v = await datascriptQuery(pl(x));
+	return v.flat(Infinity).map((e) => ({ id: e.id, ...e.properties }));
 };
 
 const [[info], experience, project, education] = await Promise.all([
@@ -54,98 +54,100 @@ const [[info], experience, project, education] = await Promise.all([
 				<h3>{info.name}</h3>
 			</Cell>
 			<Cell span="row">
-	<div class="space">
-		<a href={`https://${info.web}`}>https://{info.web}</a>
-		<span>{info.mail}</span>
-		<span>{info.phone}</span>
-	</div>
+				<div class="space">
+					<a href={`https://${info.web}`}>https://{info.web}</a>
+					<span>{info.mail}</span>
+					<span>{info.phone}</span>
+				</div>
 			</Cell>
 			<hr />
 			<Cell span="row">
-	<h3>Education</h3>
+				<h3>Education</h3>
 			</Cell>
 			{
-			education.map((e) => (
-	<>
-		<Cell span="1-2">
-			<h4>{e.school}</h4>
-		</Cell>
-		<Cell span="3-4">{e.location}</Cell>
-		<Cell span="1-3">
-			{e.major}; GPA: {e.gpa}
-		</Cell>
-		<Cell span="4.."> {e.date}</Cell>
-	</>
-			))
+				education.map((e) => (
+					<>
+						<Cell span="1-2">
+							<h4>{e.school}</h4>
+						</Cell>
+						<Cell span="3-4">{e.location}</Cell>
+						<Cell span="1-3">
+							{e.major}; GPA: {e.gpa}
+						</Cell>
+						<Cell span="4.."> {e.date}</Cell>
+					</>
+				))
 			}
 			<hr />
 			<Cell span="row">
-			<h3>Experience</h3>
-		</Cell>
+				<h3>Experience</h3>
+			</Cell>
 			{
-			experience.map((c) => (
-	<Cell span="row">
-		<Grid columns={4} gap={12}>
-			<Cell span="1+2">
-				<h4>
-		{c.title} @{" "}
-		<span class="bold">
-			<a href={`https://${c.link}`}>{c.company}</a>
-		</span>
-				</h4>
-			</Cell>
-			<Cell span="3-4">
-			{c.from} - {c.to}
-			</Cell>
-			<Cell span="row">
-				<Feat id={c.id} />
-			</Cell>
-			<Cell span="row">
-				<span class="italic">Technologies: {c.technologies}</span>
-			</Cell>
-		</Grid>
-	</Cell>
-			))
+				experience.map((c) => (
+					<Cell span="row">
+						<Grid columns={4} gap={12}>
+							<Cell span="1+2">
+								<h4>
+									{c.title} @{" "}
+									<span class="bold">
+										<a href={`https://${c.link}`}>{c.company}</a>
+									</span>
+								</h4>
+							</Cell>
+							<Cell span="3-4">
+								{c.from} - {c.to}
+							</Cell>
+							<Cell span="row">
+								<Feat id={c.id} />
+							</Cell>
+							<Cell span="row">
+								<span class="italic">Technologies: {c.technologies}</span>
+							</Cell>
+						</Grid>
+					</Cell>
+				))
 			}
 
 			<hr />
 			<Cell span="row">
-	<h3>Project</h3>
+				<h3>Project</h3>
 			</Cell>
 			{
-			project.map((c) => (
-	<Cell span="row">
-		<a class="bold" href={`https://${c.link}`}>{c.project}</a
-		>: <M content={c.details} inline as="span" />
-	</Cell>
-			))
+				project.map((c) => (
+					<Cell span="row">
+						<a class="bold" href={`https://${c.link}`}>
+							{c.project}
+						</a>
+						: <M content={c.details} inline as="span" />
+					</Cell>
+				))
 			}
 		</Grid>
 	</body>
 </html>
 
 <style>
-body {
-	/* size: A4; */
-	width: 21cm;
-	height: 29.7cm;
-	margin: auto;
-	background-color: white;
-}
-.bold {
-	font-weight: 500;
-}
+	body {
+		/* size: A4; */
+		width: 21cm;
+		height: 29.7cm;
+		margin: auto;
+		background-color: white;
+	}
+	.bold {
+		font-weight: 500;
+	}
 
-.space > * + * {
-	margin-left: 8px;
-}
+	.space > * + * {
+		margin-left: 8px;
+	}
 
-:global([data-span="3-4"], [data-span="4.."]) {
-	text-align: right;
-	align-self: end;
-}
+	:global([data-span="3-4"], [data-span="4.."]) {
+		text-align: right;
+		align-self: end;
+	}
 
-:global(strong) {
-	font-weight: 400;
-}
+	:global(strong) {
+		font-weight: 400;
+	}
 </style>

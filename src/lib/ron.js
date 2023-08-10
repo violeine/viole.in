@@ -28,7 +28,7 @@ export function rangeFloor(min, max) {
 
 }
 
-export function range(min, max) {
+export function range(min = 0, max = 1) {
 	if (max === undefined) {
 		max = min;
 		min = 0;
@@ -38,7 +38,7 @@ export function range(min, max) {
 		throw new TypeError("Expected all arguments to be numbers");
 	}
 
-	return value() * (max - min) + min;
+	return Math.random() * (max - min) + min;
 }
 export function pick(array) {
 	if (array.length === 0) return undefined;
