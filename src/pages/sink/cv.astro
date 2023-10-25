@@ -80,7 +80,7 @@ const [[info], experience, project, education] = await Promise.all([
 			}
 			<hr />
 			<Cell span="row">
-				<h3>Experience</h3>
+				<h3>Experiences</h3>
 			</Cell>
 			{
 				experience.map((c) => (
@@ -97,9 +97,10 @@ const [[info], experience, project, education] = await Promise.all([
 							<Cell span="3-4">
 								{c.from} - {c.to}
 							</Cell>
+							{c.type !== "hidden" ?
 							<Cell span="row">
 								<Feat id={c.id} />
-							</Cell>
+							</Cell>: null}
 							<Cell span="row">
 								<span class="italic">Technologies: {c.technologies}</span>
 							</Cell>
@@ -115,10 +116,8 @@ const [[info], experience, project, education] = await Promise.all([
 			{
 				project.map((c) => (
 					<Cell span="row">
-						<a class="bold" href={`https://${c.link}`}>
-							{c.project}
-						</a>
-						: <M content={c.details} inline as="span" />
+						<!-- display: inline -->
+						<a class="bold" href={`https://${c.link}`}>{c.project}</a>: <M content={c.details} inline as="span" />
 					</Cell>
 				))
 			}
