@@ -1,0 +1,22 @@
+---
+import Content from "@/lib/logseq/content.astro";
+const { _parent } = Astro.props;
+
+interface Props {
+  _parent: {
+    content: string;
+    _parent?: Props["_parent"];
+  }[];
+}
+---
+
+<ul>
+  {
+    _parent.map((el) => (
+      <li>
+        <Content {...el} />
+        {el._parent ? <Astro.self _parent={el._parent} /> : null}
+      </li>
+    ))
+  }
+</ul>

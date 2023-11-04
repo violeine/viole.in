@@ -1,8 +1,8 @@
 :root {
 	--fontSize: 16px;
 
-	--sansFont: "Lexend DecaVariable";
-	--monoFont: "Jetbrains MonoVariable";
+	--sansFont: "Lexend Deca Variable";
+	--monoFont: "Jetbrains Mono Variable";
 	--serifFont: "et-book";
 
 	--lineHeight: calc(var(--fontSize) * 1.5); /* vertical spacing */

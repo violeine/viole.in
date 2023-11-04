@@ -21,6 +21,5 @@ export default defineConfig({
       applyBaseStyles: false
     }
   }), mdx(), react(), svelte(), preact(), mdIntegration()],
-  // output: "server",
-  // adapter: vercel()
+  output: "static",
 });

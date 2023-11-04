@@ -1,16 +1,49 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { q } from "@/lib/log";
+import { datascriptQuery, q } from "@/lib/log";
 import { render } from "@/lib/md";
+import { stringRules } from "@/lib/logseq/rules";
 
-import Marks from "@/components/lmd.astro";
+import Logseq from "@/lib/logseq/Logseq.astro";
 
-const t = await render(`## render markdown from string`, true);
-const til = await q(["[[til]]"]).then((r) => r.map((e) => e.content));
-console.log(JSON.stringify(til, null, 2));
+const t = await render(`## TIL`, true);
+
+const model = `[
+    :db/id
+    :block/content
+    :block/properties
+    {:block/page [:db/id :block/name :block/journal-day]}
+    {:block/_parent ...}]`;
+
+const pl = [
+  `
+  [
+    :find (pull ?b ${model})
+    :in $ % 
+    :where (property ?b :til _)
+  ]
+`,
+  `[${stringRules}]`,
+];
+const result = await datascriptQuery(pl).then((e) =>
+  e
+    .flat(Infinity)
+    .toSorted((a, b) => b["page"]["journal-day"] - a["page"]["journal-day"]),
+);
 ---
 
 <Layout>
   <div set:html={t} />
-  {til.map((e) => <Marks content={e} />)}
+  {
+    result.map((el) => (
+      <ul>
+        <li>
+          <p>
+            <span>{el["page"]["name"]}</span>: <span>{el.properties.til}</span>
+          </p>
+          {el._parent ? <Logseq _parent={el._parent} /> : null}
+        </li>
+      </ul>
+    ))
+  }
 </Layout>

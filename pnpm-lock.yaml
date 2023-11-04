@@ -20,10 +20,10 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^5.0.2
     version: 5.0.2(astro@3.4.3)(tailwindcss@3.3.5)
-  '@fontsource/jetbrains-mono':
-    specifier: ^5.0.17
-    version: 5.0.17
-  '@fontsource/lexend-deca':
+  '@fontsource-variable/jetbrains-mono':
+    specifier: ^5.0.18
+    version: 5.0.18
+  '@fontsource-variable/lexend-deca':
     specifier: ^5.0.8
     version: 5.0.8
   '@preact/signals':
@@ -952,12 +952,12 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fontsource/jetbrains-mono@5.0.17:
-    resolution: {integrity: sha512-Y/EtdbwKwNQTGpnMrexX8SVW6Jqlh0nX2bNHI9Z9m6FsyjbocZIFNJqwSY9bDUoi7irGtz8nuidAN7FF8wYuJA==}
+  /@fontsource-variable/jetbrains-mono@5.0.18:
+    resolution: {integrity: sha512-8qyD5zmaB4X9EQsGViwHGcQPjOGsHGxyJ+DuAxkXVyP+/Mzb5B9kYuG8+8a3vX/y0mZ81CUpbUWp0ik89c3dQw==}
     dev: false
 
-  /@fontsource/lexend-deca@5.0.8:
-    resolution: {integrity: sha512-mxP3QvcRHlsrfsN4U/hBG8Mdv60In8hT83Esz3THwR6a8BMybv/Nfuj4o0RpD+t6vSrdfcZvXEw/B/BlJ0fcTQ==}
+  /@fontsource-variable/lexend-deca@5.0.8:
+    resolution: {integrity: sha512-umzhec52A6qYSPEGggp7c+zEklRxU9JWMrZH0WxLpjPM7Zh6l+ayuoOny4d2EQcOSYFbGjhrlVCE6REhuYwNAQ==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.13:
