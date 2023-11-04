@@ -10,8 +10,5 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "allowJs": true,
-    "include": [
-      "node_modules/@webgpu/types/**/*"
-    ]
   }
 }

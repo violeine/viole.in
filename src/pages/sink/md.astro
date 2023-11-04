@@ -1,14 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Md from "@/components/md.astro";
 import { q } from "@/lib/log";
 import { render } from "@/lib/md";
 
+import Marks from "@/components/lmd.astro";
+
 const t = await render(`## render markdown from string`, true);
 const til = await q(["[[til]]"]).then((r) => r.map((e) => e.content));
+console.log(JSON.stringify(til, null, 2));
 ---
 
 <Layout>
   <div set:html={t} />
-  {til.map((e) => <Md content={e} />)}
+  {til.map((e) => <Marks content={e} />)}
 </Layout>
