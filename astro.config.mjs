@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
-import react from "@astrojs/react";
 import svelte from "@astrojs/svelte";
 import { mdIntegration } from "./src/lib/md";
 
@@ -20,6 +19,6 @@ export default defineConfig({
     config: {
       applyBaseStyles: false
     }
-  }), mdx(), react(), svelte(), preact(), mdIntegration()],
+  }), preact({ compat: true }), svelte(), mdIntegration(), mdx()],
   output: "static",
 });
