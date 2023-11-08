@@ -1,4 +1,4 @@
-import { createMarkdownProcessor, renderMarkdown } from "@astrojs/markdown-remark";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 
 export const md = Symbol.for("md");
 
@@ -6,7 +6,6 @@ export const md = Symbol.for("md");
 export const render = async (str, isInline) => {
 	const processor = await createMarkdownProcessor(globalThis[md]);
 	const t = await processor.render(str, globalThis[md]);
-	console.log(t);
 	return isInline ? inline(t.code) : t.code;
 };
 

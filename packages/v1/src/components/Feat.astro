@@ -1,6 +1,6 @@
 ---
 import { datascriptQuery } from "@/lib/log";
-import M from "@/components/md.astro";
+import { Markdown as M } from "@viole.in/md/component";
 
 const { id } = Astro.props;
 const pl = [
@@ -9,6 +9,7 @@ const pl = [
 ]
 `,
 ];
+
 const v = await datascriptQuery(pl);
 
 const content = v.flat(Infinity).map((e) => e.content);
