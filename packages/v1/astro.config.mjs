@@ -6,6 +6,10 @@ import preact from "@astrojs/preact";
 import { mdIntegration } from "@viole.in/md";
 
 export default defineConfig({
+  site: 'https://viole.in',
+  build: {
+    assetsPrefix: 'https://viole.in'
+  },
   markdown: {
     shikiConfig: {
       theme: "github-light",
