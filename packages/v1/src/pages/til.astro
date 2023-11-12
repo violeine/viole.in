@@ -3,11 +3,14 @@ import Layout from "@/layouts/Layout.astro";
 import { datascriptQuery, stringRules } from "@viole.in/logseq";
 import { render } from "@viole.in/md";
 import { Logseq } from "@viole.in/logseq/components";
+import { groupBy } from "@/lib/ash";
 
 const t = await render(`## today i learned`, true);
 
 const model = `[
     :db/id
+    {:block/left ...}
+    :block/parent
     :block/content
     :block/properties
     {:block/page [:db/id :block/name :block/journal-day]}
@@ -27,10 +30,10 @@ const pl = [
 const result = await datascriptQuery(pl).then((e) =>
   e
     .flat(Infinity)
-    .toSorted(
-      (a: any, b: any) => b["page"]["journal-day"] - a["page"]["journal-day"],
-    ),
+    .toSorted((a, b) => b.page["journal-day"] - a.page["journal-day"]),
 );
+const groupByJournal = groupBy(result, (result) => result.page.name);
+console.log(groupByJournal);
 ---
 
 <Layout>

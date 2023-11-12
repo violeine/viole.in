@@ -1,18 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Json from "@/components/Json.astro";
 import { datascriptQuery, stringRules } from "@viole.in/logseq";
-import { render } from "@viole.in/md";
 import { Logseq } from "@viole.in/logseq/components";
-
-const t = await render(`## /dev/log`, true);
+import { sortByDistanceFromParent } from "@viole.in/logseq/utils";
 
 const model = `[
     :db/id
-    {:block/left ...}
     :block/content
+    :block/properties
     :block/parent
-    ]`;
+    {:block/left ...}
+    {:block/page [:db/id :block/name :block/journal-day]}
+    {:block/_parent ...}]`;
 
 const pl = [
   `
@@ -26,14 +25,23 @@ const pl = [
 ];
 
 const result = await datascriptQuery(pl).then((e) => {
-  const a = e
-    .flat(Infinity)
-    .toSorted((a: any, b: any) => b["left"]["id"] - a["left"]["id"]);
-  return a;
+  return e.flat(Infinity).toSorted(sortByDistanceFromParent);
 });
 ---
 
 <Layout>
   <h2>/dev/log</h2>
-  <Json data={result} />
+  {
+    result.map((el: any) => (
+      <ul>
+        <li>
+          <p>
+            <span>{el["page"]["name"]}</span>:{" "}
+            <span>{el.properties.devlog}</span>
+          </p>
+          {el._parent ? <Logseq _parent={el._parent} sorted /> : null}
+        </li>
+      </ul>
+    ))
+  }
 </Layout>

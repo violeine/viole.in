@@ -1,0 +1,28 @@
+---
+import Content from "./content.astro";
+const { _parent, sorted = false } = Astro.props;
+import { sortByDistanceFromParent } from "./utils";
+
+interface Props {
+  _parent: {
+    content: string;
+    _parent?: Props["_parent"];
+  }[];
+  sorted?: boolean;
+}
+
+const _p = sorted ? _parent.toSorted(sortByDistanceFromParent) : _parent;
+---
+
+<ul>
+  {
+    _p.map((el) => (
+      <li>
+        <Content {...el} />
+        {el._parent ? (
+          <Astro.self _parent={el._parent} sorted={sorted} />
+        ) : null}
+      </li>
+    ))
+  }
+</ul>

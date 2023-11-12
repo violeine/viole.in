@@ -7,9 +7,16 @@ import { datascriptQuery } from "@viole.in/logseq";
 
 import "@fontsource-variable/lexend-deca";
 import "@/styles/base.css";
+import { sortByDistanceFromParent } from "@viole.in/logseq/utils";
 
+const model = `[
+	:db/id
+	{:block/left ...}
+	:block/properties
+	:block/parent
+]`
 const pl = (t:string) => [
-	` [:find (pull ?b [*])
+	` [:find (pull ?b ${model})
 			:where	[?b :block/parent ?parent]
 							[?parent :block/properties ?prop]
 							[(get ?prop :cv) ?v]
@@ -21,8 +28,9 @@ const pl = (t:string) => [
 
 const t = async (x:any) => {
 	const v = await datascriptQuery(pl(x));
-	return v.flat(Infinity).map((e:any) => ({ id: e.id, ...e.properties, left: e.left})).toSorted((a,b)=> b.left.id - a.left.id);
+	return v.flat(Infinity).map((e:any) => ({ id: e.id, ...e.properties, left: e.left, parent: e.parent})).toSorted(sortByDistanceFromParent)
 };
+
 
 const [[info], experience, project, education] = await Promise.all([
 	t("info"),
