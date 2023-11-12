@@ -1,0 +1,39 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Json from "@/components/Json.astro";
+import { datascriptQuery, stringRules } from "@viole.in/logseq";
+import { render } from "@viole.in/md";
+import { Logseq } from "@viole.in/logseq/components";
+
+const t = await render(`## /dev/log`, true);
+
+const model = `[
+    :db/id
+    {:block/left ...}
+    :block/content
+    :block/parent
+    ]`;
+
+const pl = [
+  `
+  [
+    :find (pull ?b ${model})
+    :in $ % 
+    :where (has-property ?b :devlog _)
+  ]
+`,
+  `[${stringRules}]`,
+];
+
+const result = await datascriptQuery(pl).then((e) => {
+  const a = e
+    .flat(Infinity)
+    .toSorted((a: any, b: any) => b["left"]["id"] - a["left"]["id"]);
+  return a;
+});
+---
+
+<Layout>
+  <h2>/dev/log</h2>
+  <Json data={result} />
+</Layout>

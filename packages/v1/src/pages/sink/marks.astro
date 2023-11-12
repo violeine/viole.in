@@ -1,8 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Json from "@/components/Json.astro";
-import { Marks } from "@/lib/marks.jsx";
-import { q } from "@/lib/log";
+import { Marks as M } from "@/lib/marks.jsx";
+import { q } from "@viole.in/logseq";
 
 const marks = await q([
   "(and (property :marks) (not (property :template)))",
@@ -17,7 +16,7 @@ const marks = await q([
     > site powered by logseq.
   </p>
   <hr />
-  <Marks marks={marks} />
+  <M marks={marks} />
   <hr />
   <p>
     <a href={`${Astro.url.origin}/about/marks`}>Built with logseq queries.</a>

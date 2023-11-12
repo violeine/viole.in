@@ -2,8 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 
 import Grid from "@/components/grid.astro";
-import { Theme } from "@/components/theme";
-import { q } from "@/lib/log";
+import { q } from "@viole.in/logseq";
 
 const res = await q(["(property :quote)"]);
 

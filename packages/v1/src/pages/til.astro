@@ -1,11 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { datascriptQuery, q } from "@/lib/log";
-import { stringRules } from "@/lib/logseq/rules";
+import { datascriptQuery, stringRules } from "@viole.in/logseq";
 import { render } from "@viole.in/md";
-import Logseq from "@/lib/logseq/Logseq.astro";
+import { Logseq } from "@viole.in/logseq/components";
 
-const t = await render(`## TIL`, true);
+const t = await render(`## today i learned`, true);
 
 const model = `[
     :db/id
@@ -24,17 +23,20 @@ const pl = [
 `,
   `[${stringRules}]`,
 ];
+
 const result = await datascriptQuery(pl).then((e) =>
   e
     .flat(Infinity)
-    .toSorted((a, b) => b["page"]["journal-day"] - a["page"]["journal-day"]),
+    .toSorted(
+      (a: any, b: any) => b["page"]["journal-day"] - a["page"]["journal-day"],
+    ),
 );
 ---
 
 <Layout>
   <div set:html={t} />
   {
-    result.map((el) => (
+    result.map((el: any) => (
       <ul>
         <li>
           <p>

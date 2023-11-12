@@ -16,6 +16,8 @@ export default defineConfig({
     config: {
       applyBaseStyles: false
     }
-  }), preact({ compat: true }), svelte(), mdIntegration(), mdx()],
+  }), preact({
+    compat: true
+  }), svelte(), mdIntegration(), mdx()],
   output: "static",
 });
