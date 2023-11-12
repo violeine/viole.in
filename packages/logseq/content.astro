@@ -31,4 +31,4 @@ const rewriteImageUrl = () => {
 const file = await rehype().use(rewriteImageUrl).process(htmlString);
 ---
 
-<p set:html={file} />
+<Fragment set:html={file} />

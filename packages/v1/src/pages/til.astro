@@ -4,6 +4,8 @@ import { datascriptQuery, stringRules } from "@viole.in/logseq";
 import { render } from "@viole.in/md";
 import { Logseq } from "@viole.in/logseq/components";
 import { groupBy } from "@/lib/ash";
+import Grid from "@/components/grid.astro";
+import Cell from "@/components/cell.astro";
 
 const t = await render(`## today i learned`, true);
 
@@ -32,22 +34,60 @@ const result = await datascriptQuery(pl).then((e) =>
     .flat(Infinity)
     .toSorted((a, b) => b.page["journal-day"] - a.page["journal-day"]),
 );
-const groupByJournal = groupBy(result, (result) => result.page.name);
-console.log(groupByJournal);
+const groupByJournal = Object.entries(
+  groupBy(result, (result) => result.page.name),
+);
 ---
 
 <Layout>
   <div set:html={t} />
-  {
-    result.map((el: any) => (
-      <ul>
-        <li>
-          <p>
-            <span>{el["page"]["name"]}</span>: <span>{el.properties.til}</span>
-          </p>
-          {el._parent ? <Logseq _parent={el._parent} /> : null}
-        </li>
-      </ul>
-    ))
-  }
+  <q
+    >collection of things i learn "today", revised & expand sometime not today.
+  </q>
+  <Grid columns={8} gap={8}>
+    {
+      groupByJournal.map(([date, list]) => (
+        <>
+          <Cell span={1}>
+            <span style="font-weight: 400; font-variant-numeric: tabular-nums;">
+              {date}
+            </span>
+          </Cell>
+          {list.map(
+            (el) => (
+              console.log(el.properties.tags),
+              (
+                <>
+                  <Cell span={"2.."}>
+                    <details>
+                      <summary class:list={[el._parent && "summary"]}>
+                        {
+                          <Fragment
+                            set:html={render(el.properties.til, true)}
+                          />
+                        }
+                      </summary>
+                      {el._parent ? <Logseq _parent={el._parent} /> : null}
+                    </details>
+                  </Cell>
+                </>
+              )
+            ),
+          )}
+        </>
+      ))
+    }
+  </Grid>
 </Layout>
+
+<style>
+  .summary {
+    text-decoration: underline var(--fg);
+    cursor: pointer;
+  }
+  details {
+    & Logseq {
+      padding: 8px;
+    }
+  }
+</style>
