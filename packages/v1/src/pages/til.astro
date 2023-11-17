@@ -53,27 +53,18 @@ const groupByJournal = Object.entries(
               {date}
             </span>
           </Cell>
-          {list.map(
-            (el) => (
-              console.log(el.properties.tags),
-              (
-                <>
-                  <Cell span={"2.."}>
-                    <details>
-                      <summary class:list={[el._parent && "summary"]}>
-                        {
-                          <Fragment
-                            set:html={render(el.properties.til, true)}
-                          />
-                        }
-                      </summary>
-                      {el._parent ? <Logseq _parent={el._parent} /> : null}
-                    </details>
-                  </Cell>
-                </>
-              )
-            ),
-          )}
+          {list.map((el) => (
+            <>
+              <Cell span={"2.."}>
+                <details>
+                  <summary class:list={[el._parent && "summary"]}>
+                    {<Fragment set:html={render(el.properties.til, true)} />}
+                  </summary>
+                  {el._parent ? <Logseq _parent={el._parent} /> : null}
+                </details>
+              </Cell>
+            </>
+          ))}
         </>
       ))
     }

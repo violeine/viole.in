@@ -25,7 +25,11 @@ const pl = [
 ];
 
 const result = await datascriptQuery(pl).then((e) => {
-  return e.flat(Infinity).toSorted(sortByDistanceFromParent);
+  console.log(e);
+  return e
+    .flat(Infinity)
+    .toSorted(sortByDistanceFromParent)
+    .toSorted((a, b) => b.page["journal-day"] - a.page["journal-day"]);
 });
 ---
 
