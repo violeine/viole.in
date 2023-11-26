@@ -16,11 +16,7 @@ export default defineConfig({
       wrap: true
     }
   },
-  integrations: [tailwind({
-    config: {
-      applyBaseStyles: false
-    }
-  }), preact({
+  integrations: [preact({
     compat: true
   }), svelte(), mdIntegration(), mdx()],
   output: "static",

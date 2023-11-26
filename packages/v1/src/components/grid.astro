@@ -8,9 +8,10 @@ const { columns, gap } = Astro.props;
 //TODO: fix column gap
 ---
 
-<div class="grid" data-grid={columns}><slot /></div>
+<v-grid class="grid" data-grid={columns}><slot /></v-grid>
 
-<style is:global
+<style
+  is:global
   define:vars={{
     columns,
     gap: gap !== undefined ? `${gap}px` : "var(--columnGap)",

@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from "astro/types";
+export interface Props extends HTMLAttributes<"div"> {
+  columns: number;
+  s?: number;
+  gap?: number;
+}
+
+const { columns, gap, s, ...props } = Astro.props;
+//TODO: fix column gap
+---
+
+<div class="grid" data-grid={columns} data-s-grid={s} {...props}><slot /></div>
+
+<style
+  is:global
+  define:vars={{
+    cols: columns,
+    "s-columns": s,
+    gap: gap !== undefined ? `${gap}px` : "var(--columnGap)",
+  }}
+>
+  .grid {
+    --columns: var(--cols);
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    gap: var(--gap);
+    --grid-col-start: 1;
+    --grid-col-end: -1;
+    width: 100%;
+    min-height: 0;
+    min-width: 0;
+  }
+  @media only screen and (max-width: 600px) {
+    .grid {
+      --columns: var(--s-columns, var(--cols)) !important;
+    }
+  }
+</style>
