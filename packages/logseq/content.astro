@@ -28,7 +28,12 @@ const rewriteImageUrl = () => {
   };
 };
 
-const file = await rehype().use(rewriteImageUrl).process(htmlString);
+const file = await rehype()
+  .data("settings", {
+    fragment: true,
+  })
+  .use(rewriteImageUrl)
+  .process(htmlString);
 ---
 
 <Fragment set:html={file} />

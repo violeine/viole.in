@@ -1,6 +1,36 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Grid, Cell } from "@viole.in/ui";
+import { datascriptQuery, stringRules } from "@viole.in/logseq";
+import { Logseq } from "@viole.in/logseq/components";
+import { sortByDistanceFromParent } from "@viole.in/logseq/utils";
+
+const model = `[
+    :db/id
+    :block/content
+    :block/properties
+    :block/parent
+    {:block/left ...}
+    {:block/page [:db/id :block/name :block/journal-day]}
+    {:block/_parent ...}]`;
+
+const pl = [
+  `
+  [
+    :find (pull ?b ${model})
+    :in $ % 
+    :where (has-property ?b :devlog _)
+  ]
+`,
+  `[${stringRules}]`,
+];
+
+const result = await datascriptQuery(pl).then((e) => {
+  return e
+    .flat(Infinity)
+    .toSorted(sortByDistanceFromParent)
+    .toSorted((a, b) => b.page["journal-day"] - a.page["journal-day"]);
+});
 ---
 
 <Layout title="meta">
@@ -10,21 +40,42 @@ import { Grid, Cell } from "@viole.in/ui";
   <h4>header 4</h4>
   <h5>header 5</h5>
   <p>
-    this is a long paragraph. and we will try not to write any capitalize word
-    through out this blog.
+    this is a long paragraph. and i will try not to write any capitalize word
+    through out this blog.??
   </p>
   <p>
-    <q>a quote</q>{" "}<a href="https://www.google.com">a link</a> why the fuck
+    minimal to unstyle website. give back control to reader. minimize
+    complication for me to focus on writing and prototyping.
   </p>
+  <p>tiếng Việt thì sao nhỉ? ồ nô nô nồ nỗ ộ</p>
+  <p>
+    <q
+      >With this will I paint a world. Twill be a cold, dark, and very gentle
+      place. And one day, it will make someone a goodly home.</q
+    >
+    <cite>The Painter, Dark Souls 3</cite>
+    <a href="https://www.google.com" target="_blank">an external link</a>{" "}
+    <a href="/about">an internal link</a>
+  </p>
+  <q>mankind, be vigilant; we loved you.</q>
   <p>hello</p>
   <ul>
-    <li>a list</li>
+    <li>
+      a list
+      <ul>
+        <li>nested list</li>
+        <li>nested list</li>
+        <li>nested list</li>
+        <li>nested list</li>
+      </ul>
+    </li>
     <li>a list</li>
     <li>a list</li>
     <li>a list</li>
   </ul>
+  <pre>pre with <em>italic</em> <b>bold</b> and <code>code</code></pre>
   <h1>raster grid</h1>
-  <Grid columns={8} gap={8}>
+  <Grid columns={8} gap={8} s={4}>
     <Cell />
     <Cell />
     <Cell />
@@ -41,4 +92,21 @@ import { Grid, Cell } from "@viole.in/ui";
       }
     </style>
   </Grid>
+  <h1>logseq content</h1>
+  <h2>/dev/log</h2>
+  <div class="logseq">
+    {
+      result.map((el: any) => (
+        <ul>
+          <li>
+            <h1>
+              <span>{el["page"]["name"]}</span>:{" "}
+              <span>{el.properties.devlog}</span>
+            </h1>
+            {el._parent ? <Logseq _parent={el._parent} sorted /> : null}
+          </li>
+        </ul>
+      ))
+    }
+  </div>
 </Layout>

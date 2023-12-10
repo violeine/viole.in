@@ -118,6 +118,12 @@ importers:
       '@astrojs/check':
         specifier: ^0.3.1
         version: 0.3.1(typescript@5.3.2)
+      '@viole.in/logseq':
+        specifier: workspace:^
+        version: link:../logseq
+      '@viole.in/md':
+        specifier: workspace:^
+        version: link:../md
       '@viole.in/ui':
         specifier: workspace:^
         version: link:../ui

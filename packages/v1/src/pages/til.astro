@@ -17,7 +17,6 @@ const model = `[
     :block/properties
     {:block/page [:db/id :block/name :block/journal-day]}
     {:block/_parent ...}]`;
-
 const pl = [
   `
   [
@@ -34,6 +33,7 @@ const result = await datascriptQuery(pl).then((e) =>
     .flat(Infinity)
     .toSorted((a, b) => b.page["journal-day"] - a.page["journal-day"]),
 );
+
 const groupByJournal = Object.entries(
   groupBy(result, (result) => result.page.name),
 );
