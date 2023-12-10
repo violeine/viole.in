@@ -14,7 +14,7 @@
     "@viole.in/logseq": "workspace:^",
     "@viole.in/md": "workspace:^",
     "@viole.in/ui": "workspace:^",
-    "astro": "^3.6.0",
+    "astro": "^4.0.3",
     "typescript": "^5.3.2"
   }
 }
