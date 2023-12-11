@@ -8,7 +8,7 @@ import { mdIntegration } from "@viole.in/md";
 export default defineConfig({
   site: 'https://viole.in',
   build: {
-    assetsPrefix: 'https://viole.in'
+    assetsPrefix: 'https://v1.viole.in'
   },
   markdown: {
     shikiConfig: {
