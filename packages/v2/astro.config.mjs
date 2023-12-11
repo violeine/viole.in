@@ -5,5 +5,8 @@ import { mdIntegration } from '@viole.in/md'
 export default defineConfig({
   markdown: {
     syntaxHighlight: false
-  }, integrations: [mdIntegration()]
+  }, integrations: [mdIntegration()],
+  build:{
+    format: 'file'
+  }
 });

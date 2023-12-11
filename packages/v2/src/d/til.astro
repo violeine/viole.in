@@ -1,12 +1,12 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro";
 import { datascriptQuery, stringRules } from "@viole.in/logseq";
 import { render } from "@viole.in/md";
 import { Logseq } from "@viole.in/logseq/components";
-import Grid from "@/components/grid.astro";
-import Cell from "@/components/cell.astro";
+import Grid from "@viole.in/ui/grid.astro";
+import Cell from "@viole.in/ui/cell.astro";
 
-const t = await render(`## today i learned`, true);
+const t = await render(`# today i learned`, true);
 
 const model = `[
     :db/id
@@ -27,57 +27,52 @@ const pl = [
   `[${stringRules}]`,
 ];
 
+export const groupBy = (x, f) =>
+  // https://stackoverflow.com/a/64489535
+  x.reduce((a, b, i) => ((a[f(b, i, x)] ||= []).push(b), a), {});
+
 const result = await datascriptQuery(pl).then((e) =>
   e
     .flat(Infinity)
     .toSorted((a, b) => b.page["journal-day"] - a.page["journal-day"]),
 );
-
 const groupByJournal = Object.entries(
   groupBy(result, (result) => result.page.name),
 );
 ---
 
-<Layout>
+<Layout title="til">
   <div set:html={t} />
   <q
-    >collection of things i learn "today", revised & expand sometime not today.
-  </q>
-  <Grid columns={8} gap={8}>
+    >collection of things i learn "today", revised & expand sometime not today.</q
+  >
+  <!-- <pre>
+    {JSON.stringify(groupByJournal, null, 2)}
+  </pre> -->
+  <Grid columns={32} gap={8}>
     {
       groupByJournal.map(([date, list]) => (
         <>
-          <Cell span={1}>
-            <span style="font-weight: 400; font-variant-numeric: tabular-nums;">
-              {date}
-            </span>
+          <Cell span="1-7" s="row">
+            <cod style="font-weight: 800;">{date}</cod>
           </Cell>
           {list.map((el) => (
-            <>
-              <Cell span={"2.."}>
+            <Cell span={"8.."} s="row">
+              <div class="logseq">
                 <details>
                   <summary class:list={[el._parent && "summary"]}>
                     {<Fragment set:html={render(el.properties.til, true)} />}
+                    {el.properties.tags?.map((tag: string) => (
+                      <span class="tag">{tag}</span>
+                    ))}
                   </summary>
-                  {el._parent ? <Logseq _parent={el._parent} /> : null}
+                  {el._parent ? <Logseq _parent={el._parent} sorted /> : null}
                 </details>
-              </Cell>
-            </>
+              </div>
+            </Cell>
           ))}
         </>
       ))
     }
   </Grid>
 </Layout>
-
-<style>
-  .summary {
-    text-decoration: underline var(--fg);
-    cursor: pointer;
-  }
-  details {
-    & Logseq {
-      padding: 8px;
-    }
-  }
-</style>

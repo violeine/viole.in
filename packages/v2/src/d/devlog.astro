@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { datascriptQuery, stringRules } from "@viole.in/logseq";
+import { Logseq } from "@viole.in/logseq/components";
+import { sortByDistanceFromParent } from "@viole.in/logseq/utils";
+
+interface Props {
+  log: string | null;
+}
+const { log = null } = Astro.props;
+
+export const d = 123;
+
+const model = `[
+    :db/id
+    :block/content
+    :block/properties
+    :block/parent
+    {:block/left ...}
+    {:block/page [:db/id :block/name :block/journal-day]}
+    {:block/_parent ...}]`;
+const rule = (log: Props["log"]) =>
+  log ? `(property ?b :devlog "${log}")` : `(has-property ?b :devlog)`;
+
+const pl = [
+  `
+  [
+    :find (pull ?b ${model})
+    :in $ % 
+    :where ${rule(log)}
+  ]
+`,
+  `[${stringRules}]`,
+];
+
+const result = await datascriptQuery(pl).then((e) => {
+  return e
+    .flat(Infinity)
+    .toSorted(sortByDistanceFromParent)
+    .toSorted(
+      (a: any, b: any) => b.page["journal-day"] - a.page["journal-day"],
+    );
+});
+---
+
+<Layout title="/dev/log">
+  <h1><a href="/devlog">/dev/log</a>{log ? `: ${log}` : null}</h1>
+  <div class="logseq">
+    {
+      result.map((el: any) => (
+        <ul>
+          <li>
+            <h1>
+              <span>{el["page"]["name"]}</span>
+              {!log && (
+                <>
+                  {": "}
+                  <span>
+                    <a href={`/devlog:${el.properties.devlog}`}>
+                      {el.properties.devlog}
+                    </a>
+                  </span>
+                </>
+              )}
+            </h1>
+            {el._parent ? <Logseq _parent={el._parent} sorted /> : null}
+          </li>
+        </ul>
+      ))
+    }
+  </div>
+</Layout>

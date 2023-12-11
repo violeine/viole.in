@@ -14,9 +14,9 @@ main a[target="_blank"] {text-decoration-style: dotted;}
 body a:hover, main a:hover > * { background-color: var(--bg);color:#fff;text-decoration:none; }
 
 main code {white-space: pre; background-color: var(--sel); padding: 2px; border-radius: 4px; font-size: 90%;}
+
 main pre {background-color: var(--sel); overflow: auto; padding: 4px; border-radius: 4px; border: solid 1px var(--fg); font-size:80%}
 pre code {font-size: 100%;}
-
 main q, main blockquote p { font-family:serif;font-size:18px;font-style:italic;display:block;max-width:400px; }
 main cite, blockquote cite { display:block; margin-bottom:32px }
 main cite:before, blockquote cite::before { content:"— " }
@@ -69,4 +69,10 @@ main ul li, main ol li { line-height:24px;padding:0px 4px }
   & li::before{content: "•"; position: absolute; left: -8px;}
   & li:has(h1,h2,h3,h4,h5,h6)::before{top:12px;}
   & li:has(h1,h2,h3,h4,h5,h6)::after {--bullet-spacing:12px;}
+}
+.tag {
+  border-radius: 4px; border: var(--fg) solid 1px;
+  padding: 2px; font-size: 80%;
+  &::before {content: "#";}
+  & + .tag {margin-left: 4px;}
 }

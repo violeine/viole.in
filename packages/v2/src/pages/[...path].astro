@@ -1,0 +1,13 @@
+---
+import type { GetStaticPaths } from "astro";
+import { paths } from "../nav.ts";
+
+export const getStaticPaths = (async () => {
+  return paths.map((path) => ({ params: { path: path.name }, props: path }));
+}) satisfies GetStaticPaths;
+
+const { name, base, ...props } = Astro.props;
+const { default: Component } = await import(`../d/${base}.astro`);
+---
+
+<Component {...props} />
