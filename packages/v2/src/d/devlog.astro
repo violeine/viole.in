@@ -46,22 +46,31 @@ const result = await datascriptQuery(pl).then((e) => {
 
 <Layout title="/dev/log">
   <h1><a href="/devlog">/dev/log</a>{log ? `: ${log}` : null}</h1>
+  {
+    !log && (
+      <q>
+        development log of various projects. <br />
+        follow the project name to read their entries.
+      </q>
+    )
+  }
   <div class="logseq">
     {
       result.map((el: any) => (
         <ul>
           <li>
             <h1>
-              <span>{el["page"]["name"]}</span>
-              {!log && (
+              {!log ? (
                 <>
-                  {": "}
+                  <span>{el["page"]["name"]}</span>:
                   <span>
                     <a href={`/devlog:${el.properties.devlog}`}>
                       {el.properties.devlog}
                     </a>
                   </span>
                 </>
+              ) : (
+                <span>{el["page"]["name"]}</span>
               )}
             </h1>
             {el._parent ? <Logseq _parent={el._parent} sorted /> : null}

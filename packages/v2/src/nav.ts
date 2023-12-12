@@ -8,6 +8,7 @@ export const paths = [
   { name: "meta", base: 'meta' },
   { name: "til", base: 'til' },
   { name: 'marks', base: 'marks' },
+  { name: 'reading', base: 'reading' },
   { name: undefined, base: 'home' }
 ]
 

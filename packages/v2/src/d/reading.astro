@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { q } from "@viole.in/logseq";
+import { groupBy } from "./til.astro";
+import { Image } from "astro:assets";
+import heading from "../assets/reading-list-header.png";
+
+const books = await q([
+  `(and (property :book) (not (property :quote)) (property :status "read"))`,
+]).then((r) => {
+  return r.map((e) => e.properties);
+});
+const queue = await q([
+  `(and (property :book) (not (property :quote)) (or (property :status "reading") (property :status "to-read")))`,
+]).then((r) => {
+  return r.map((e) => e.properties);
+});
+const byYear = groupBy(books, (el: any) => el["readDate"][0].split("/")[0]);
+const entries = Object.entries(byYear).reverse();
+---
+
+<Layout title="reading list" desc="books i've read">
+  <h1>reading list</h1>
+  <q>books i've read</q>
+  <figure>
+    <Image alt="I am not lonely. I have my books" src={heading} height={300} />
+  </figure>
+  <h3>queue</h3>
+  {
+    (
+      <ul>
+        {queue.map((book: any) => (
+          <li>
+            <i>{book.book}</i>, by {book.author} ({book.published})
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    entries.map(([year, books]) => (
+      <>
+        <h3>{year}</h3>
+        <ul>
+          {books.map((book: any) => (
+            <li>
+              <i>{book.book}</i>, by {book.author} ({book.published})
+            </li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
+</Layout>

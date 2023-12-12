@@ -16,16 +16,21 @@ const marks = await q([
 <Layout title="marks">
   <h1>marks</h1>
   <q>collection of things i found on the internet.</q>
+  <p>
+    <a href="https://www.marginalia.nu/log/19-website-discoverability-crisis/"
+      >the small website discoverability crisis.</a
+    >
+  </p>
   <hr />
   <Grid columns={8}>
     {
-      marks.map((el: any) => (
+      marks?.map((el: any) => (
         <>
           <Cell span={"1-5"}>
             <a href={el.marks} set:html={render(el.desc, true)} />
           </Cell>
           <Cell span={"6.."}>
-            {el.tags.map((e) => (
+            {el?.tags.map((e) => (
               <span class="tag">{e}</span>
             ))}
           </Cell>
