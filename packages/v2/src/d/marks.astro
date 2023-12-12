@@ -1,0 +1,54 @@
+---
+import { q } from "@viole.in/logseq";
+import { Grid, Cell } from "@viole.in/ui";
+import Layout from "../layouts/Layout.astro";
+import { render } from "@viole.in/md";
+
+const marks = await q([
+  "(and (property :marks) (not (property :template)))",
+]).then((r) => {
+  return r
+    .toSorted((a: any, b: any) => b.page.journalDay - a.page.journalDay)
+    .map((e) => e.properties);
+});
+---
+
+<Layout title="marks">
+  <h1>marks</h1>
+  <q>collection of things i found on the internet.</q>
+  <hr />
+  <Grid columns={8}>
+    {
+      marks.map((el: any) => (
+        <>
+          <Cell span={"1-5"}>
+            <a href={el.marks} set:html={render(el.desc, true)} />
+          </Cell>
+          <Cell span={"6.."}>
+            {el.tags.map((e) => (
+              <span class="tag">{e}</span>
+            ))}
+          </Cell>
+        </>
+      ))
+    }
+  </Grid>
+</Layout>
+<style is:inline>
+  .grid {
+    row-gap: 8px;
+  }
+  .cell:has(a) {
+    & a {
+      text-decoration: none;
+      &::before {
+        content: "• ";
+      }
+    }
+  }
+  .cell:has(.tag) {
+    display: inline;
+    word-wrap: break-word;
+    text-align: right;
+  }
+</style>

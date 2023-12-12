@@ -13,7 +13,9 @@ export function Marks({ marks }) {
 function Mark(props) {
 	const url = new URL(props.marks);
 	return <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-		<img src={fetchFavicon(url.origin)} alt="url favicon" style={{ width: "16px", aspectRatio: "1/1" }} /> <a href={props.marks}>{props.desc}</a> <span style={{ color: "rbg(0,0,0)", opacity: "0.3" }}>{url.host}</span>
+		<img src={fetchFavicon(url.origin)} alt="url favicon" style={{ width: "16px", aspectRatio: "1/1" }} />
+		<a href={props.marks}>{props.desc}</a>
+		<span style={{ color: "rbg(0,0,0)", opacity: "0.3" }}>{url.host}</span>
 		<div style={{ marginLeft: "auto" }}>
 			<Tags tags={props.tags} />
 		</div>

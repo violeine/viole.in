@@ -7,6 +7,7 @@ export const paths = [
   { name: 'devlog:rye', base: 'devlog', log: 'rye' },
   { name: "meta", base: 'meta' },
   { name: "til", base: 'til' },
+  { name: 'marks', base: 'marks' },
   { name: undefined, base: 'home' }
 ]
 
