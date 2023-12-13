@@ -17,10 +17,12 @@ const _p = sorted ? _parent.toSorted(sortByDistanceFromParent) : _parent;
 <ul>
   {
     _p.map((el) => (
-      <li>
+      <li class:list={el._parent && "ruler"}>
         <Content {...el} />
         {el._parent ? (
-          <Astro.self _parent={el._parent} sorted={sorted} />
+          <>
+            <Astro.self _parent={el._parent} sorted={sorted} />
+          </>
         ) : null}
       </li>
     ))

@@ -26,10 +26,10 @@ const marks = await q([
     {
       marks?.map((el: any) => (
         <>
-          <Cell span={"1-5"}>
+          <Cell span={"1-5"} class="mark">
             <a href={el.marks} set:html={render(el.desc, true)} />
           </Cell>
-          <Cell span={"6.."}>
+          <Cell span={"6.."} class="taglist">
             {el?.tags.map((e) => (
               <span class="tag">{e}</span>
             ))}
@@ -43,15 +43,13 @@ const marks = await q([
   .grid {
     row-gap: 8px;
   }
-  .cell:has(a) {
-    & a {
-      text-decoration: none;
-      &::before {
-        content: "• ";
-      }
+  .mark a {
+    text-decoration: none;
+    &::before {
+      content: "• ";
     }
   }
-  .cell:has(.tag) {
+  .taglist {
     word-wrap: break-word;
     text-align: right;
     overflow-wrap: break-word;

@@ -1,92 +1,99 @@
 ---
-export interface Props {
-	span?:
-		| number
-		| `${number}-${number}`
-		| `${number}+${number}`
-		| `${number}..`
-		| "row";
-	s?:
-		| number
-		| `${number}-${number}`
-		| `${number}+${number}`
-		| `${number}..`
-		| "row";
+import type { HTMLAttributes } from "astro/types";
+export interface Props extends HTMLAttributes<"div"> {
+  span?:
+    | number
+    | `${number}-${number}`
+    | `${number}+${number}`
+    | `${number}..`
+    | "row";
+  s?:
+    | number
+    | `${number}-${number}`
+    | `${number}+${number}`
+    | `${number}..`
+    | "row";
 }
-const { span, s } = Astro.props;
+const { span, s, class: x, ...props } = Astro.props;
 
 function parse(span: Props["span"]) {
-	if (span === undefined) return {};
-	if (typeof span === "number") {
-		return {
-			"grid-col-end": span,
-		};
-	}
-	if (span === "row") return {};
-	const delim = new RegExp(/[-+..]/);
-	const [start, end] = span.split(delim);
-	if (span.includes(".."))
-		return {
-			"grid-col-start": start,
-		};
-	if (span.includes("+")) {
-		return {
-			"grid-col-start": start,
-			"grid-col-end": Number(end),
-		};
-	}
-	return {
-		"grid-col-start": start,
-		"grid-col-end": Number(end) + 1,
-	};
+  if (span === undefined) return {};
+  if (typeof span === "number") {
+    return {
+      "grid-col-end": span,
+    };
+  }
+  if (span === "row") return {};
+  const delim = new RegExp(/[-+..]/);
+  const [start, end] = span.split(delim);
+  if (span.includes(".."))
+    return {
+      "grid-col-start": start,
+    };
+  if (span.includes("+")) {
+    return {
+      "grid-col-start": start,
+      "grid-col-end": Number(end),
+    };
+  }
+  return {
+    "grid-col-start": start,
+    "grid-col-end": Number(end) + 1,
+  };
 }
 const t = {
-	...parse(span),
-	"s-col-start": parse(s)["grid-col-start"],
-	"s-col-end": parse(s)["grid-col-end"],
+  ...parse(span),
+  "s-col-start": parse(s)["grid-col-start"],
+  "s-col-end": parse(s)["grid-col-end"],
 };
 ---
 
-<div class="cell" data-order={1} data-span={span} data-s-span={s}>
-	<slot />
+<div
+  class:list={["cell", x]}
+  data-order={1}
+  data-span={span}
+  data-s-span={s}
+  {...props}
+>
+  <slot />
 </div>
 
 <style is:global define:vars={t}>
-	.cell {
-		display: block;
-		appearance: none;
-		min-height: 0;
-		min-width: 0;
-		--col-start: var(--grid-col-start);
-		--col-end: var(--grid-col-end);
-	}
+  .cell {
+    display: block;
+    appearance: none;
+    min-height: 0;
+    min-width: 0;
+    --col-start: var(--grid-col-start);
+    --col-end: var(--grid-col-end);
+  }
 
-	.cell[data-span] {
-		grid-column-end: span var(--col-start);
-	}
+  .cell[data-span] {
+    grid-column-end: span var(--col-start);
+  }
 
-	.cell[data-span*="+"],
-	.cell[data-span*="-"],
-	.cell[data-span*=".."] {
-		grid-column-start: var(--col-start);
-	}
+  .cell[data-span*="+"],
+  .cell[data-span*="-"],
+  .cell[data-span*=".."] {
+    grid-column-start: var(--col-start);
+  }
 
-	.cell[data-span*="-"],
-	.cell[data-span*=".."] {
-		grid-column-end: var(--col-end);
-	}
+  .cell[data-span*="-"],
+  .cell[data-span*=".."] {
+    grid-column-end: var(--col-end);
+  }
 
-	.cell[data-span="row"] {
-		grid-column: 1 / -1;
-	}
+  .cell[data-span="row"] {
+    grid-column: 1 / -1;
+  }
 
-	@media only screen and (max-width: 600px) {
-		.cell {
-			--col-start: var(--s-col-start, var(--grid-col-start));
-			--col-end: var(--s-col-end, var(--grid-col-end));
-		}
-		.cell[data-s-span="row"] {
-			grid-column: 1 / -1;
-		}
-	}
+  @media only screen and (max-width: 600px) {
+    .cell {
+      --col-start: var(--s-col-start, var(--grid-col-start));
+      --col-end: var(--s-col-end, var(--grid-col-end));
+    }
+    .cell[data-s-span="row"] {
+      grid-column: 1 / -1;
+    }
+  }
 </style>

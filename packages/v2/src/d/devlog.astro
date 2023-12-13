@@ -55,10 +55,10 @@ const result = await datascriptQuery(pl).then((e) => {
     )
   }
   <div class="logseq">
-    {
-      result.map((el: any) => (
-        <ul>
-          <li>
+    <ul>
+      {
+        result.map((el: any) => (
+          <li class:list={[el.parent && "ruler"]}>
             <h1>
               {!log ? (
                 <>
@@ -75,8 +75,8 @@ const result = await datascriptQuery(pl).then((e) => {
             </h1>
             {el._parent ? <Logseq _parent={el._parent} sorted /> : null}
           </li>
-        </ul>
-      ))
-    }
+        ))
+      }
+    </ul>
   </div>
 </Layout>
