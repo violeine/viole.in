@@ -1,0 +1,57 @@
+---
+import { datascriptQuery, stringRules } from "@viole.in/logseq";
+import Layout from "../layouts/Layout.astro";
+import { sortByDistanceFromParent } from "@viole.in/logseq/utils";
+import Logseq from "@viole.in/logseq/Logseq.astro";
+import { render } from "@viole.in/md";
+const model = `[
+    :db/id
+    :block/content
+    :block/properties
+    :block/properties-text-values
+    :block/parent
+    {:block/left ...}
+    {:block/page [:db/id :block/name :block/journal-day]}
+    {:block/_parent ...}]`;
+
+const { id } = Astro.props;
+console.log(typeof id);
+
+const pl = [
+  `
+  [
+    :find (pull ?b ${model})
+    :in $ % 
+    :where [?b :block/uuid #uuid "${id}"]
+  ]
+`,
+  `[${stringRules}]`,
+];
+const result = await datascriptQuery(pl).then((e) => {
+  return e
+    .flat(Infinity)
+    .toSorted(sortByDistanceFromParent)
+    .toSorted(
+      (a: any, b: any) => b.page["journal-day"] - a.page["journal-day"],
+    );
+});
+const el = result[0];
+---
+
+<Layout title="" desc="">
+  <h1>
+    <a href="/notes">notes:</a>
+    <Fragment
+      set:html={render(result[0]["properties-text-values"].notes, true)}
+    />
+  </h1>
+  <article class="logseq ruler">
+    {el._parent && <Logseq _parent={el._parent} sorted />}
+  </article>
+</Layout>
+
+<style is:inline>
+  .logseq > ul > li {
+    margin-bottom: 8px;
+  }
+</style>

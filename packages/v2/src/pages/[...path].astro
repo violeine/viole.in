@@ -1,10 +1,15 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { paths } from "../nav.ts";
+import { buildPathFromLogseq, paths } from "../nav.ts";
 
-export const getStaticPaths = (async () => {
-  return paths.map((path) => ({ params: { path: path.name }, props: path }));
-}) satisfies GetStaticPaths;
+export const getStaticPaths = async () => {
+  const t = await buildPathFromLogseq({ properties: "notes", base: "p" });
+  const d = [...t, ...paths];
+  return d.map((path: any) => ({
+    params: { path: path.name },
+    props: path,
+  }));
+};
 
 const { name, base, ...props } = Astro.props;
 const { default: Component } = await import(`../d/${base}.astro`);

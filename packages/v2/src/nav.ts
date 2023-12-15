@@ -9,19 +9,30 @@ export const paths = [
   { name: "til", base: 'til' },
   { name: 'marks', base: 'marks' },
   { name: 'reading', base: 'reading' },
+  { name: 'notes', base: 'notes' },
   { name: undefined, base: 'home' }
 ]
 
 export async function buildPathFromLogseq({ properties, base }: { properties: string, base: string }) {
   const pl = [
-    `
-  [
-    :find (pull ?b [:block/properties])
+    ` [ 
+    :find (pull ?b [:block/properties-text-values :block/uuid])
     :in $ % 
-    :where (has-property ?b :${properties})
-  ] `,
+    :where (has-property ?b :${properties})]`,
     `[${stringRules}]`,
   ];
-  return await datascriptQuery(pl).then(e => new Set(e.flat(Infinity).flatMap((el: any) => ({ name: `devlog:${el.properties[properties]}`, base }))));
+
+  return await datascriptQuery(pl).then(e =>
+    new Set(e.flat(Infinity).flatMap((el: any) => {
+      return {
+        name: `${properties}:${slug(el['properties-text-values'][properties])}`,
+        base,
+        id: el.uuid,
+        title: el['properties-text-values'][properties]
+      }
+    }
+    )));
 }
 
+//this make "sadf, `csolskj`" into "sadf-csolskj"
+const slug = (s: string) => s.replace(/[^a-z\d ]+/ig, " ").replace(/\s{2,}/g, " ").trim().split(" ").join("-")

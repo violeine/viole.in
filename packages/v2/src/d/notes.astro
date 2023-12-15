@@ -1,0 +1,29 @@
+---
+import { render } from "@viole.in/md";
+import Layout from "../layouts/Layout.astro";
+import { buildPathFromLogseq } from "../nav";
+const paths = await buildPathFromLogseq({
+  properties: "notes",
+  base: "notes",
+});
+const notes = Array.from(paths);
+---
+
+<Layout title="notes" desc="random notes about random things">
+  <h1>notes</h1>
+  <q>random notes about random things</q>
+  <ul>
+    {
+      notes.map((notes: any) => (
+        <li>
+          <a href={"/" + notes.name} set:html={render(notes.title, true)} />
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
