@@ -1,11 +1,10 @@
 <script>
-	import { onMount } from "svelte";
-	import { animate } from "./animate";
-	let canvas;
-	export let dimension;
-	export let draw;
+	import { animate } from "./lib/animate";
+	let canvas = $state();
+	let { draw, dimension } = $props();
+
 	const dpi = window.devicePixelRatio;
-	onMount(() => {
+	$effect(() => {
 		canvas.width = dpi * dimension.width;
 		canvas.height = dpi * dimension.height;
 		canvas.style.width = `${dimension.width}px`;

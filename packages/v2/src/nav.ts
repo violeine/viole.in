@@ -5,11 +5,13 @@ export const paths = [
   { name: 'devlog', base: 'devlog' },
   { name: 'devlog:viole.in', base: 'devlog', log: 'viole.in' },
   { name: 'devlog:rye', base: 'devlog', log: 'rye' },
+  { name: 'devlog:sketch', base: 'devlog', log: 'sketch' },
   { name: "meta", base: 'meta' },
   { name: "til", base: 'til' },
   { name: 'marks', base: 'marks' },
   { name: 'reading', base: 'reading' },
   { name: 'notes', base: 'notes' },
+  { name: 'sketch', base: 'sketch' },
   { name: undefined, base: 'home' }
 ]
 

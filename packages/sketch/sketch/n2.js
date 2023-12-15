@@ -1,10 +1,5 @@
-import { lerp } from "@/lib/mae.js";
-import { noise2D } from "@/lib/ron.js";
-
-export const dimensions = {
-	width: 512,
-	height: 512,
-};
+import { lerp } from "../lib/mae.js";
+import { noise2D } from "../lib/ron.js";
 
 function createGrid() {
 	const points = [];
@@ -25,23 +20,27 @@ function createGrid() {
 
 	return points;
 }
-
+const margin = 40;
 const points = createGrid();
 
-const margin = 40;
-export function draw(ctx) {
-	ctx.fillStyle = "white";
-	ctx.fillRect(0, 0, 512, 512);
+export const dimension = {
+	width: 512,
+	height: 512,
+};
 
+
+export function draw(ctx) {
+	ctx.fillStyle = "black";
+
+	ctx.fillRect(0, 0, 1024, 1024);
 	points.forEach(({ pos: [u, v], rad, rotate }) => {
 		const x = lerp(margin, 512 - margin, u);
 		const y = lerp(margin, 512 - margin, v);
 		ctx.save();
-		ctx.fillStyle = "black";
-		ctx.font = `${rad * 400}px "Arial"`;
-		ctx.translate(x, y);
-		ctx.rotate(rotate);
-		ctx.fillText(".", 0, 0);
+		ctx.strokeStyle = "white";
+		ctx.beginPath();
+		ctx.arc(x, y, rad * 20, 0, 2 * Math.PI);
+		ctx.stroke();
 		ctx.restore();
 	});
 }

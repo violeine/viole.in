@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { readdir } from "node:fs/promises";
+import { parse } from "node:path";
+import { Shell } from "@viole.in/sketch";
+const pagesDir = `${process.cwd()}/node_modules/@viole.in/sketch/sketch`;
+const url = new URL(pagesDir, import.meta.url);
+const entries = await readdir(url, { withFileTypes: false });
+const s = entries.map((e) => parse(e).name);
+console.log(s);
+---
+
+<Layout title="sketch">
+  <h1>sketch</h1>
+  <a href="/devlog:sketch">/dev/log</a>
+  <q><s>messing</s> musing with canvas</q>
+</Layout>
+{s.map((el) => <Shell client:only="svelte" file={el} />)}

@@ -2,13 +2,13 @@
 
 body { padding: 32px; font-family: "georgia"; font-size: 16px; background: var(--app); hyphens: auto; }
 
-body > *, body > * > *, main figure > *, main figure > div > *, main > p { margin-bottom: 32px; }
-
+body > *, body > * > *, body astro-island > *, body astro-island > * > *, main figure > *, main figure > div > *, main > p { margin-bottom: 32px; }
 main { max-width: 624px; }
 main ::selection { background-color: var(--bg); text-decoration: none; color: #fff; }
 main img, main svg { max-width: 100%; display: inline-block; vertical-align: top; object-fit: contain; max-height: 100%; } 
 main p { line-height: 150%;}
 main a { padding: 2px; text-decoration: underline; word-wrap: break-word; } main a[target="_blank"] { text-decoration-style: dotted; } 
+main s {text-decoration: line-through;}
 body a:hover, main a:hover > * { background-color: var(--bg); color: #fff; text-decoration: none; }
 
 main code { white-space: pre; background-color: var(--sel); padding: 2px; border-radius: 4px; font-size: 90%; font-style: normal; }

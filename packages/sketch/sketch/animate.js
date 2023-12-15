@@ -1,6 +1,6 @@
-import { lerp } from "@/lib/mae";
+import { lerp } from "../lib/mae";
 
-export const dimensions = {
+export const dimension = {
 	width: 512,
 	height: 512,
 	animate: {
@@ -10,8 +10,8 @@ export const dimensions = {
 
 export function draw(ctx, { playhead }) {
 	// console.log(playhead);
-	const width = dimensions.width;
-	const height = dimensions.height;
+	const width = dimension.width;
+	const height = dimension.height;
 	ctx.clearRect(0, 0, width, height);
 	ctx.fillStyle = "#f3e9eb";
 	ctx.fillRect(0, 0, width, height);
