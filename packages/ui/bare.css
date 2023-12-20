@@ -6,6 +6,7 @@ body > *, body > * > *, body astro-island > *, body astro-island > * > *, main f
 main { max-width: 624px; }
 main ::selection { background-color: var(--bg); text-decoration: none; color: #fff; }
 main img, main svg { max-width: 100%; display: inline-block; vertical-align: top; object-fit: contain; max-height: 100%; } 
+canvas {display: block;}
 main p { line-height: 150%;}
 main a { padding: 2px; text-decoration: underline; word-wrap: break-word; } main a[target="_blank"] { text-decoration-style: dotted; } 
 main s {text-decoration: line-through;}
@@ -15,16 +16,22 @@ main code { white-space: pre; background-color: var(--sel); padding: 2px; border
 main pre { background-color: var(--sel); overflow: auto; padding: 4px; border-radius: 4px; border: solid 1px var(--fg); font-size: 80%; }
 pre code { font-size: 100%; }
 
-main q, main blockquote p { font-family: serif; font-size: 18px; font-style: italic; display: block; max-width: 400px; } 
+main q {text-indent: -0.4em;}
+main q, main blockquote p { font-family: georgia; font-size: 18px; font-style: italic; display: block; max-width: 400px; } 
 main cite, blockquote cite { display: block; margin-bottom: 32px; } 
 main cite:before, blockquote cite::before { content: "— ";}
 /* main h1, main h2, main h3, main h4, main h5, main figure figcaption { max-width:400px } */
-/* table td, table th { vertical-align:top;padding:2.5px 5px;text-align:left } */
-/* table td > pre, table th > pre { background:none;padding:0;margin:0 } */
-/* table tr img { margin-bottom:0 } */
+table {font-family: monospace; font-size: 90%; border-spacing: 0;}
+table, th, td {border: 1px solid;}
+table td, table th { padding:2px 4px; border-top-width: 0; border-left-width: 0;}
+table td > pre, table th > pre { background:none;padding:0;margin:0 }
+table tr img { margin-bottom:0 }
+th:last-child, td:last-child { border-right-width: 0; }
+tr:last-child td { border-bottom-width: 0; }
+
 /* header { float:left;margin:5px 30px 0 0;min-height:90px } */
 /* header img { display:block } */
-/* nav { margin:0 0 30px } */
+/* nav { margin:0 0 32px } */
 /* nav ul { padding:0;margin:0 45px 30px 0;float:left } */
 /* nav ul li { list-style-type:none;white-space:pre } */
 /* nav ul li a { padding:0px 4px} */

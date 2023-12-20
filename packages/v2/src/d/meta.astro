@@ -1,6 +1,14 @@
 ---
+import { render } from "@viole.in/md";
 import Layout from "../layouts/Layout.astro";
 import { Grid, Cell } from "@viole.in/ui";
+const t = `
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |`;
+const table = await render(t);
 ---
 
 <Layout title="meta">
@@ -29,6 +37,7 @@ import { Grid, Cell } from "@viole.in/ui";
     <a href="/about">an internal link</a>
   </p>
   <q>mankind, be vigilant; we loved you.</q>
+  <Fragment set:html={table} />
   <p>hello</p>
   <ul>
     <li>

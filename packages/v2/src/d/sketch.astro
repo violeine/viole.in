@@ -12,7 +12,7 @@ console.log(s);
 
 <Layout title="sketch">
   <h1>sketch</h1>
-  <a href="/devlog:sketch">/dev/log</a>
   <q><s>messing</s> musing with canvas</q>
+  {s.map((el) => <Shell client:only="svelte" file={el} />)}
+  <a href="/devlog:sketch">/dev/log:sketch</a>
 </Layout>
-{s.map((el) => <Shell client:only="svelte" file={el} />)}

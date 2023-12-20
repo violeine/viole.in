@@ -4,8 +4,7 @@ import { rehype } from "rehype";
 import type { Root, Properties } from "hast";
 import { visit } from "unist-util-visit";
 const { content, _parent } = Astro.props;
-
-const htmlString = await render(content);
+const htmlString = await render(content.replaceAll("\ncollapsed:: true", ""));
 
 interface Props {
   content: string;

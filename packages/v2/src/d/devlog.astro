@@ -45,13 +45,15 @@ const result = await datascriptQuery(pl).then((e) => {
 ---
 
 <Layout title="/dev/log">
-  <h1><a href="/devlog">/dev/log</a>{log ? `: ${log}` : null}</h1>
+  <h1>
+    <a href="/devlog">/dev/log</a>{log ? `: ${log}` : null}
+  </h1>
+
   {
+    // prettier-ignore
     !log && (
-      <q>
-        development log of various projects. <br />
-        follow the project name to read their entries.
-      </q>
+      <q>development log of various projects. <br /> 
+      follow the project name to read their entries.</q>
     )
   }
   <div class="logseq">
