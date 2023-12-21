@@ -14,7 +14,7 @@ const entries = await getCollection("about");
       <th>date</th>
     </tr>
     {
-      entries.map((e) => (
+      entries?.map((e) => (
         <tr>
           <td>
             <a href={`/about/${e.slug}`}>{e.data.title}</a>

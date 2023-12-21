@@ -63,7 +63,7 @@ const [[info], experience, project, education] = await Promise.all([
 			</Cell>
 			<Cell span="row">
 				<div class="space">
-					<a href={`https://${info.web}`}>https://{info.web}</a>
+					<a href={`https://${info.web}`}>{info.web}</a>
 					<span>{info.mail}</span>
 					<span>{info.phone}</span>
 				</div>
@@ -84,6 +84,26 @@ const [[info], experience, project, education] = await Promise.all([
 						</Cell>
 						<Cell span="4.."> {e.date}</Cell>
 					</>
+				))
+			}
+			<hr />
+			<Cell span="row">
+				<h3>Projects</h3>
+			</Cell>
+			{
+				project.map((c) => (
+				<>
+					<Cell span="row">
+						<!-- display: inline -->
+						<h4>
+							<span class="bold"><a href={`https://${c.link}`}>{c.project}</a></span>: <M content={c.details} inline as="span" />
+						</h4>
+					</Cell>
+				{c.type !== "hidden" ?
+					<Cell span="row">
+						<Feat id={c.id} />
+					</Cell>: null}
+				</>
 				))
 			}
 			<hr />
@@ -117,18 +137,6 @@ const [[info], experience, project, education] = await Promise.all([
 				))
 			}
 
-			<hr />
-			<Cell span="row">
-				<h3>Projects</h3>
-			</Cell>
-			{
-				project.map((c) => (
-					<Cell span="row">
-						<!-- display: inline -->
-						<a class="bold" href={`https://${c.link}`}>{c.project}</a>: <M content={c.details} inline as="span" />
-					</Cell>
-				))
-			}
 		</Grid>
 	</body>
 </html>
@@ -137,7 +145,7 @@ const [[info], experience, project, education] = await Promise.all([
 	body {
 		/* size: A4; */
 		width: 21cm;
-		height: 29.7cm;
+		/* height: 29.7cm; */
 		margin: auto;
 		background-color: white;
 	}

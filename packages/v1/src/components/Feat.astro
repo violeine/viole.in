@@ -1,18 +1,27 @@
 ---
 import { datascriptQuery } from "@viole.in/logseq";
+import { sortByDistanceFromParent } from "@viole.in/logseq/utils";
 import { Markdown as M } from "@viole.in/md/component";
 
 const { id } = Astro.props;
+const model = `[
+	:db/id
+	{:block/left ...}
+	:block/content
+	:block/parent
+]`;
 const pl = [
-	`[:find (pull ?b [*])
+	`[:find (pull ?b ${model})
   :where [?b :block/parent ${id}]
 ]
 `,
 ];
 
 const v = await datascriptQuery(pl);
-
-const content = v.flat(Infinity).map((e) => e.content);
+const content = v
+	.flat(Infinity)
+	.toSorted(sortByDistanceFromParent)
+	.map((e) => e.content);
 ---
 
 <ul>
